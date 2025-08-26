@@ -1,0 +1,12 @@
+name: depmod-app
+title: DepMod-App
+username: stijnbpeeters
+account: stijnbpeeters
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 15209685
+bundleId: 10775843
+url: https://stijnbpeeters.shinyapps.io/depmod-app/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

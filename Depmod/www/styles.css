@@ -1,0 +1,178 @@
+/* ===========================
+   Trimbos style (scoped)
+   =========================== */
+.trimbos {
+  /* ---- Brand tokens (edit these to match the official guide) ---- */
+  --tri-primary:      #e11d2e;  /* primary red */
+  --tri-primary-600:  #c41625;
+  --tri-primary-700:  #a1121e;
+  --tri-on-primary:   #ffffff;
+
+  --tri-accent:       #0057b8;  /* calm blue for links/CTAs (optional) */
+  --tri-on-accent:    #ffffff;
+
+  --tri-success:      #16a34a;
+  --tri-warning:      #f59e0b;
+  --tri-danger:       #dc2626;
+
+  --tri-bg:           #ffffff;
+  --tri-surface:      #f8f9fb;
+  --tri-surface-2:    #eef1f5;
+  --tri-text:         #0f172a;
+  --tri-text-muted:   #475569;
+  --tri-border:       #e5e7eb;
+
+  --tri-radius:       12px;
+  --tri-radius-sm:    8px;
+  --tri-shadow-1:     0 1px 2px rgba(0,0,0,.06), 0 1px 1px rgba(0,0,0,.04);
+  --tri-shadow-2:     0 8px 24px rgba(0,0,0,.08);
+
+  /* ---- Typography (swap to official fonts if known) ---- */
+  --tri-font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  --tri-font-serif: ui-serif, Georgia, "Times New Roman", serif;
+  --tri-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
+
+/* ---- Base ---- */
+.trimbos {
+  background: var(--tri-bg);
+  color: var(--tri-text);
+  font-family: var(--tri-font-sans);
+  line-height: 1.55;
+}
+
+.trimbos a {
+  color: var(--tri-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.trimbos a:hover { text-decoration-thickness: 2px; }
+
+/* ---- Header / brand bar ---- */
+.trimbos .brand-bar {
+  background: var(--tri-primary);
+  color: var(--tri-on-primary);
+  padding: 14px 20px;
+  display: flex; align-items: center; gap: 16px;
+  box-shadow: var(--tri-shadow-1);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+.trimbos .brand-logo { height: 28px; display:block; }
+.trimbos .brand-title { font-weight: 700; letter-spacing: .2px; }
+
+/* ---- Nav ---- */
+.trimbos .nav {
+  display: flex; gap: 20px; padding: 10px 20px; background: var(--tri-surface);
+  border-bottom: 1px solid var(--tri-border);
+}
+.trimbos .nav a {
+  color: var(--tri-text-muted); text-decoration: none; padding: 8px 6px; border-radius: 6px;
+}
+.trimbos .nav a:hover, .trimbos .nav a[aria-current="page"] {
+  background: var(--tri-surface-2); color: var(--tri-text);
+}
+
+/* ---- Buttons ---- */
+.trimbos .btn {
+  appearance: none; border: 1px solid transparent; border-radius: var(--tri-radius-sm);
+  padding: 10px 14px; font-weight: 600; cursor: pointer; line-height: 1.2;
+  transition: transform .02s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+.trimbos .btn:focus { outline: 3px solid rgba(0,87,184,.3); outline-offset: 2px; }
+
+.trimbos .btn-primary {
+  background: var(--tri-primary); color: var(--tri-on-primary);
+  box-shadow: var(--tri-shadow-1);
+}
+.trimbos .btn-primary:hover { background: var(--tri-primary-600); }
+.trimbos .btn-primary:active { background: var(--tri-primary-700); transform: translateY(1px); }
+
+.trimbos .btn-accent {
+  background: var(--tri-accent); color: var(--tri-on-accent);
+}
+.trimbos .btn-outline {
+  background: transparent; color: var(--tri-primary); border-color: var(--tri-primary);
+}
+.trimbos .btn-outline:hover { background: rgba(225,29,46,.08); }
+
+/* ---- Cards / panels ---- */
+.trimbos .card {
+  background: #fff; border: 1px solid var(--tri-border);
+  border-radius: var(--tri-radius); box-shadow: var(--tri-shadow-1);
+}
+.trimbos .card-header { padding: 14px 16px; border-bottom: 1px solid var(--tri-border); font-weight: 700; }
+.trimbos .card-body   { padding: 16px; }
+.trimbos .card-muted  { background: var(--tri-surface); }
+
+/* ---- Badges ---- */
+.trimbos .badge {
+  display: inline-block; padding: 4px 8px; font-size: .825rem; border-radius: 999px; font-weight: 600;
+}
+.trimbos .badge-primary { background: rgba(225,29,46,.12); color: var(--tri-primary); }
+.trimbos .badge-accent  { background: rgba(0,87,184,.12); color: var(--tri-accent); }
+.trimbos .badge-success { background: rgba(22,163,74,.12); color: var(--tri-success); }
+
+/* ---- Forms ---- */
+.trimbos .form-label { font-weight: 600; color: var(--tri-text); margin-bottom: 6px; display:block; }
+.trimbos .form-control, .trimbos select, .trimbos textarea {
+  width: 100%; padding: 10px 12px; border-radius: 10px;
+  border: 1px solid var(--tri-border); background: #fff; color: var(--tri-text);
+}
+.trimbos .form-control:focus, .trimbos select:focus, .trimbos textarea:focus {
+  border-color: var(--tri-accent); box-shadow: 0 0 0 4px rgba(0,87,184,.15); outline: none;
+}
+
+/* ---- Tables ---- */
+.trimbos table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+.trimbos th, .trimbos td { padding: 12px 10px; border-bottom: 1px solid var(--tri-border); }
+.trimbos thead th { text-align: left; color: var(--tri-text); background: var(--tri-surface); }
+
+/* ---- Alerts ---- */
+.trimbos .alert {
+  padding: 12px 14px; border-radius: var(--tri-radius-sm); border: 1px solid var(--tri-border); background: var(--tri-surface);
+}
+.trimbos .alert-success { border-color: rgba(22,163,74,.25); background: rgba(22,163,74,.06); }
+.trimbos .alert-warning { border-color: rgba(245,158,11,.25); background: rgba(245,158,11,.08); }
+.trimbos .alert-danger  { border-color: rgba(220,38,38,.25); background: rgba(220,38,38,.08); }
+
+/* ---- Footer ---- */
+.trimbos .footer {
+  margin-top: 24px; padding: 20px; background: var(--tri-surface);
+  border-top: 1px solid var(--tri-border); color: var(--tri-text-muted);
+}
+
+/* ---- Mermaid (optional) ---- */
+.trimbos .mermaid .node rect,
+.trimbos .mermaid .node circle,
+.trimbos .mermaid .node polygon {
+  rx: 10; ry: 10; /* rounded nodes */
+}
+.trimbos .mermaid .edgeLabel { background: rgba(255,255,255,.85); padding: 2px 6px; border-radius: 6px; }
+
+/* ---- Dark mode (auto) ---- */
+@media (prefers-color-scheme: dark) {
+  .trimbos {
+    --tri-bg:        #0b1020;
+    --tri-surface:   #11162a;
+    --tri-surface-2: #1a2036;
+    --tri-text:      #e6e8ef;
+    --tri-text-muted:#aab1c5;
+    --tri-border:    #2a2f45;
+    --tri-on-primary:#ffffff;
+    --tri-on-accent: #ffffff;
+  }
+  .trimbos .card { background: var(--tri-surface); }
+  .trimbos .nav a:hover, .trimbos .nav a[aria-current="page"] { background: var(--tri-surface-2); }
+}
+
+/* ---- Accessibility helpers ---- */
+.trimbos .sr-only {
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0;
+}
+.trimbos .skip-link {
+  position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
+}
+.trimbos .skip-link:focus {
+  left: 16px; top: 16px; width:auto; height:auto; padding:8px 12px; background:#fff; border:2px solid var(--tri-primary);
+  border-radius: 8px; z-index:9999;
+}
