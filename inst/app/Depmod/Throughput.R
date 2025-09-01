@@ -1630,6 +1630,8 @@ change_in_daly_sim <- lapply(1:length(population_sim), function(i){
 # Calculate costs per year ------------------------------------------------
 
 ## Array costs per intervention
+
+
 cost_p_array <- array(NA_real_,
                     dim = c(10,10),
                     dimnames = list(c(1:10),
@@ -1666,6 +1668,8 @@ change_in_costs <-  array(NA_real_,
                              dimnames = list(Year = 0:5,
                                              Severity = c("mild", "moderate", "severe", "total")))
 
+
+suppressWarnings({
 change_in_costs_sim <- lapply(1:length(population_sim), function(i){
   
   new_population <- population_sim[[i]]
@@ -1691,8 +1695,12 @@ change_in_costs_sim <- lapply(1:length(population_sim), function(i){
   
   change_in_costs[,"total"] <- rowSums(change_in_costs[,c("mild", "moderate", "severe")])
   
+  
   return(change_in_costs)
   })
+
+})
+
 
 # Eventual QALYs and costs for the 1000 simulations ------------------------------------------------
 qaly_cost_array <- array(NA_real_,

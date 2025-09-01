@@ -1,5 +1,3 @@
-options(warn = -1)
-
 # Include packages
 for (p in c("tidyverse", "shiny", "DT", "DiagrammeR", "here", "bslib")) {
   if (!requireNamespace(p, quietly = TRUE)) install.packages(p)
@@ -289,7 +287,7 @@ ui <- page_navbar(
                 )
               ),
               # Fillable body lets the widget expand nicely
-              card_body_fill(
+              card_body(
                 DiagrammeR::DiagrammeROutput("transition_tree", height = "650px")
               )
             )
@@ -2031,6 +2029,8 @@ server <- function(input, output, session) {
       severepartialcured =  req(as.numeric(vals$sevpart_one)),
       severepartialrelapse = req(as.numeric(vals$sevpart_rel))
     )
+    
+  
     
     # 4) Avoid cbind of big matrices; compute incrementals directly
     cost_base  <- as.numeric(res_base[, "Cost"])
