@@ -1,7 +1,7 @@
 options(warn = -1)
 
 # Include packages
-for (p in c("tidyverse", "shiny", "DT", "DiagrammeR", "here")) {
+for (p in c("tidyverse", "shiny", "DT", "DiagrammeR", "here", "bslib")) {
   if (!requireNamespace(p, quietly = TRUE)) install.packages(p)
   library(p, character.only = TRUE)
 }
@@ -1605,43 +1605,57 @@ server <- function(input, output, session) {
     showModal(modalDialog(
       title = "Edit transition probabilities (0–1)",
       fluidRow(
+        # --- Incidence ---
         column(3,
-               strong("Population to incidence"),
-               numericInput("pop_inc", "Population → Incidence", value = isolate(vals$pop_inc), min=0, max=1, step=1e-6),
+               strong("Incidence"),
+               numericInput("pop_inc", "Population → Incidence", 
+                            value = isolate(vals$pop_inc), min=0, max=1, step=1e-6),
                tags$hr(),
-               strong("Incidence split"),
-               numericInput("inc_mild", "Incidence → Mild",     value = isolate(vals$inc_mild), min=0, max=1, step=1e-6),
-               numericInput("inc_mod",  "Incidence → Moderate", value = isolate(vals$inc_mod),  min=0, max=1, step=1e-6),
-               numericInput("inc_sev",  "Incidence → Severe",   value = isolate(vals$inc_sev),  min=0, max=1, step=1e-6)
+               numericInput("inc_mild", "Incidence → Mild",     
+                            value = isolate(vals$inc_mild), min=0, max=1, step=1e-6),
+               numericInput("inc_mod",  "Incidence → Moderate", 
+                            value = isolate(vals$inc_mod),  min=0, max=1, step=1e-6),
+               numericInput("inc_sev",  "Incidence → Severe",   
+                            value = isolate(vals$inc_sev),  min=0, max=1, step=1e-6)
         ),
+        
+        # --- Mild ---
         column(3,
-               strong("From Mild"),
+               strong("Mild"),
                numericInput("mild_rec",  "Mild → Recovery", value = isolate(vals$mild_rec),  min=0, max=1, step=1e-6),
                numericInput("mild_part", "Mild → Partial",  value = isolate(vals$mild_part), min=0, max=1, step=1e-6),
                numericInput("mild_chr",  "Mild → Chronic",  value = isolate(vals$mild_chr),  min=0, max=1, step=1e-6),
-               numericInput("mildrec_one","Recovery(Mild) → One",     value = isolate(vals$mildrec_one), min=0, max=1, step=1e-6),
-               numericInput("mildrec_rel","Recovery(Mild) → Relapse", value = isolate(vals$mildrec_rel), min=0, max=1, step=1e-6),
-               numericInput("mildpart_one","Partial(Mild) → One",     value = isolate(vals$mildpart_one), min=0, max=1, step=1e-6),
-               numericInput("mildpart_rel","Partial(Mild) → Relapse", value = isolate(vals$mildpart_rel), min=0, max=1, step=1e-6)
+               tags$hr(),
+               numericInput("mildrec_one", "Recovery(Mild) → One",     value = isolate(vals$mildrec_one), min=0, max=1, step=1e-6),
+               numericInput("mildrec_rel", "Recovery(Mild) → Relapse", value = isolate(vals$mildrec_rel), min=0, max=1, step=1e-6),
+               numericInput("mildpart_one","Partial(Mild) → One",      value = isolate(vals$mildpart_one), min=0, max=1, step=1e-6),
+               numericInput("mildpart_rel","Partial(Mild) → Relapse",  value = isolate(vals$mildpart_rel), min=0, max=1, step=1e-6)
         ),
+        
+        # --- Moderate ---
         column(3,
-               strong("From Moderate / Severe"),
+               strong("Moderate"),
                numericInput("mod_rec",  "Moderate → Recovery", value = isolate(vals$mod_rec),  min=0, max=1, step=1e-6),
                numericInput("mod_part", "Moderate → Partial",  value = isolate(vals$mod_part), min=0, max=1, step=1e-6),
                numericInput("mod_chr",  "Moderate → Chronic",  value = isolate(vals$mod_chr),  min=0, max=1, step=1e-6),
-               numericInput("modrec_one","Recovery(Mod) → One",     value = isolate(vals$modrec_one), min=0, max=1, step=1e-6),
-               numericInput("modrec_rel","Recovery(Mod) → Relapse", value = isolate(vals$modrec_rel), min=0, max=1, step=1e-6),
-               numericInput("modpart_one","Partial(Mod) → One",     value = isolate(vals$modpart_one), min=0, max=1, step=1e-6),
-               numericInput("modpart_rel","Partial(Mod) → Relapse", value = isolate(vals$modpart_rel), min=0, max=1, step=1e-6)),
-        column(4,
-               strong("From Severe"),
+               tags$hr(),
+               numericInput("modrec_one", "Recovery(Mod) → One",     value = isolate(vals$modrec_one), min=0, max=1, step=1e-6),
+               numericInput("modrec_rel", "Recovery(Mod) → Relapse", value = isolate(vals$modrec_rel), min=0, max=1, step=1e-6),
+               numericInput("modpart_one","Partial(Mod) → One",      value = isolate(vals$modpart_one), min=0, max=1, step=1e-6),
+               numericInput("modpart_rel","Partial(Mod) → Relapse",  value = isolate(vals$modpart_rel), min=0, max=1, step=1e-6)
+        ),
+        
+        # --- Severe ---
+        column(3,
+               strong("Severe"),
                numericInput("sev_rec",  "Severe → Recovery", value = isolate(vals$sev_rec),  min=0, max=1, step=1e-6),
                numericInput("sev_part", "Severe → Partial",  value = isolate(vals$sev_part), min=0, max=1, step=1e-6),
                numericInput("sev_chr",  "Severe → Chronic",  value = isolate(vals$sev_chr),  min=0, max=1, step=1e-6),
-               numericInput("sevrec_one","Recovery(Sev) → One",     value = isolate(vals$sevrec_one), min=0, max=1, step=1e-6),
-               numericInput("sevrec_rel","Recovery(Sev) → Relapse", value = isolate(vals$sevrec_rel), min=0, max=1, step=1e-6),
-               numericInput("sevpart_one","Partial(Sev) → One",     value = isolate(vals$sevpart_one), min=0, max=1, step=1e-6),
-               numericInput("sevpart_rel","Partial(Sev) → Relapse", value = isolate(vals$sevpart_rel), min=0, max=1, step=1e-6)
+               tags$hr(),
+               numericInput("sevrec_one", "Recovery(Sev) → One",     value = isolate(vals$sevrec_one), min=0, max=1, step=1e-6),
+               numericInput("sevrec_rel", "Recovery(Sev) → Relapse", value = isolate(vals$sevrec_rel), min=0, max=1, step=1e-6),
+               numericInput("sevpart_one","Partial(Sev) → One",      value = isolate(vals$sevpart_one), min=0, max=1, step=1e-6),
+               numericInput("sevpart_rel","Partial(Sev) → Relapse",  value = isolate(vals$sevpart_rel), min=0, max=1, step=1e-6)
         )
       ),
       footer = tagList(
@@ -1651,6 +1665,7 @@ server <- function(input, output, session) {
       size = "l"
     ))
   })
+  
   
   ## ---------- 3) Save back into vals so the plot updates ----------
   observeEvent(input$save_tt, {
