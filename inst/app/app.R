@@ -1,18 +1,14 @@
 options(warn = -1)
 
-library(shiny)
-library(here)
-library(bslib)
-library(DiagrammeR)
-library(DT)
-library(rsvg)
-library(webshot2)
-library(magick)
-
+# Include packages
+for (p in c("tidyverse", "shiny", "DT", "DiagrammeR", "here")) {
+  if (!requireNamespace(p, quietly = TRUE)) install.packages(p)
+  library(p, character.only = TRUE)
+}
 
 # Source Througput for model
 
-source("Depmod/Througput.R")
+source("Depmod/Throughput.R")
 
 
 
@@ -1854,13 +1850,13 @@ server <- function(input, output, session) {
   
   # THE MODEL
   
+  
   first_part_model_trans <- reactiveVal(NULL)
   def_table <- reactiveVal(NULL)
   
   observeEvent(input$run_model, {
     
     # (optional) show a simple "running" popup
-    on.exit(removeModal(), add = TRUE)
     showModal(modalDialog("Running model…", easyClose = FALSE, footer = NULL))
     
     # Build args safely; req() ensures they exist; as.numeric() avoids type hiccups
@@ -2050,8 +2046,12 @@ server <- function(input, output, session) {
       quadrant    = quad,
       check.names = FALSE
     )
-      
+    
     ce_draws(def_df)   # <— make it visible to all outputs
+    
+    isolate(ce_draws(def_df))
+    
+    removeModal()
     
     showModal(modalDialog(
       title = "Cost-effectiveness results",
