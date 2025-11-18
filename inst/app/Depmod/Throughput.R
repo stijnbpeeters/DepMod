@@ -1,13 +1,13 @@
 # Calculations based on input parameters ----------------------------------
 
-`preventionfactor` <- 0
-`moderatecuration` <- 0.0187500007450581
-`severecuration` <- 0.025000000372529 
-`relapsefactor` <- 0
+#`preventionfactor` <- 0
+# `moderatecuration` <- 0.0187500007450581
+# `severecuration` <- 0.025000000372529 
+# `relapsefactor` <- 0
 
-`moderatecure` <- 1
-`severecure` <-  1
-`relapsecure` <-  1
+# `moderatecure` <- 1
+# `severecure` <-  1
+# `relapsecure` <-  1
 
 `dwmild fixed` <- 0.14
 `dwmoderate fixed` <- 0.35
@@ -1501,29 +1501,31 @@ population_sim <- lapply(population_sim, function(new_population){
                              "mild_population" = mild_population,
                              "moderate_population" = moderate_population,
                              "severe_population" = severe_population)
+  
+  return(new_population)
 })
 
 ### Random probabilities for dw array
 dw_p_array <- array(NA_real_,
-                    dim = c(3,6),
+                    dim = c(3,5),
                     dimnames = list(State = c("mild", "moderate", "severe"),
-                                    Year = 0:5))
+                                    Year = 1:5))
 
 ### Simulate random probabilities based on nr of simulations
 dw_p_array_sim <- replicate(sim_runs, {
 
-dw_p_array["mild",] <- runif(6, 0, 1)
-dw_p_array["moderate",] <- runif(6, 0, 1)
-dw_p_array["severe",] <- runif(6, 0, 1)
+dw_p_array["mild",] <- runif(5, 0, 1)
+dw_p_array["moderate",] <- runif(5, 0, 1)
+dw_p_array["severe",] <- runif(5, 0, 1)
 
 return(dw_p_array)
 }, simplify = FALSE)
 
 ### Simulate dw reduction coefficients based on nr of simulations
 dw_red_array <- array(NA_real_,
-                      dim = c(3,6),
+                      dim = c(3,5),
                       dimnames = list(State = c("mild", "moderate", "severe"),
-                                      Year = 0:5))
+                                      Year = 1:5))
 
 dw_red_array_sim <- lapply(dw_p_array_sim, function(dw_p_array){
   
@@ -1532,21 +1534,18 @@ dw_red_array_sim <- lapply(dw_p_array_sim, function(dw_p_array){
   dw_red_array["mild", 3] <- qnorm(dw_p_array["mild",3], mild, (mild/6))
   dw_red_array["mild", 4] <- qnorm(dw_p_array["mild",4], mild, (mild/6))
   dw_red_array["mild", 5] <- qnorm(dw_p_array["mild",5], mild, (mild/6))
-  dw_red_array["mild", 6] <- qnorm(dw_p_array["mild",6], mild, (mild/6))
   
   dw_red_array["moderate", 1] <- qnorm(dw_p_array["moderate",1], moderate, (moderate/6))
   dw_red_array["moderate", 2] <- qnorm(dw_p_array["moderate",2], moderate, (moderate/6))
   dw_red_array["moderate", 3] <- qnorm(dw_p_array["moderate",3], moderate, (moderate/6))
   dw_red_array["moderate", 4] <- qnorm(dw_p_array["moderate",4], moderate, (moderate/6))
   dw_red_array["moderate", 5] <- qnorm(dw_p_array["moderate",5], moderate, (moderate/6))
-  dw_red_array["moderate", 6] <- qnorm(dw_p_array["moderate",6], moderate, (moderate/6))
   
   dw_red_array["severe", 1] <- qnorm(dw_p_array["severe",1], severe, (severe/6))
   dw_red_array["severe", 2] <- qnorm(dw_p_array["severe",2], severe, (severe/6))
   dw_red_array["severe", 3] <- qnorm(dw_p_array["severe",3], severe, (severe/6))
   dw_red_array["severe", 4] <- qnorm(dw_p_array["severe",4], severe, (severe/6))
   dw_red_array["severe", 5] <- qnorm(dw_p_array["severe",5], severe, (severe/6))
-  dw_red_array["severe", 6] <- qnorm(dw_p_array["severe",6], severe, (severe/6))
   
   return(dw_red_array)
   
@@ -1586,27 +1585,27 @@ change_in_daly_sim <- lapply(1:length(population_sim), function(i){
   change_in_daly[3, "dwsevere"] <- new_population[3, "severe_population"] * `dwsevere fixed` * yldsevere
   change_in_daly[4, "dwsevere"] <- new_population[4, "severe_population"] * `dwsevere fixed` * yldsevere
   change_in_daly[5, "dwsevere"] <- new_population[5, "severe_population"] * `dwsevere fixed` * yldsevere
-  change_in_daly[6, "dwsevere"] <- new_population[5, "severe_population"] * `dwsevere fixed` * yldsevere
+  change_in_daly[6, "dwsevere"] <- new_population[6, "severe_population"] * `dwsevere fixed` * yldsevere
   
   #DALYs
 
-  change_in_daly[2, "mild"] <- new_population[2, "mild_population"] * dw_red_array["mild", 2] * yldmild/ ((1 + discount_rate_daly) ^ 0.50)
-  change_in_daly[3, "mild"] <- new_population[3, "mild_population"] * dw_red_array["mild", 3] * yldmild/ ((1 + discount_rate_daly) ^ 1.50)
-  change_in_daly[4, "mild"] <- new_population[4, "mild_population"] * dw_red_array["mild", 4] * yldmild/ ((1 + discount_rate_daly) ^ 2.50)
-  change_in_daly[5, "mild"] <- new_population[5, "mild_population"] * dw_red_array["mild", 5] * yldmild/ ((1 + discount_rate_daly) ^ 3.50)
-  change_in_daly[6, "mild"] <- new_population[6, "mild_population"] * dw_red_array["mild", 6] * yldmild/ ((1 + discount_rate_daly) ^ 4.50)
+  change_in_daly[2, "mild"] <- new_population[2, "mild_population"] * dw_red_array["mild", 1] * yldmild/ ((1 + discount_rate_daly) ^ 0.50)
+  change_in_daly[3, "mild"] <- new_population[3, "mild_population"] * dw_red_array["mild", 2] * yldmild/ ((1 + discount_rate_daly) ^ 1.50)
+  change_in_daly[4, "mild"] <- new_population[4, "mild_population"] * dw_red_array["mild", 3] * yldmild/ ((1 + discount_rate_daly) ^ 2.50)
+  change_in_daly[5, "mild"] <- new_population[5, "mild_population"] * dw_red_array["mild", 4] * yldmild/ ((1 + discount_rate_daly) ^ 3.50)
+  change_in_daly[6, "mild"] <- new_population[6, "mild_population"] * dw_red_array["mild", 5] * yldmild/ ((1 + discount_rate_daly) ^ 4.50)
   
-  change_in_daly[2, "moderate"] <- new_population[2, "moderate_population"] * dw_red_array["moderate", 2] * yldmoderate/ ((1 + discount_rate_daly) ^ 0.50)
-  change_in_daly[3, "moderate"] <- new_population[3, "moderate_population"] * dw_red_array["moderate", 3] * yldmoderate/ ((1 + discount_rate_daly) ^ 1.50)
-  change_in_daly[4, "moderate"] <- new_population[4, "moderate_population"] * dw_red_array["moderate", 4] * yldmoderate/ ((1 + discount_rate_daly) ^ 2.50)
-  change_in_daly[5, "moderate"] <- new_population[5, "moderate_population"] * dw_red_array["moderate", 5] * yldmoderate/ ((1 + discount_rate_daly) ^ 3.50)
-  change_in_daly[6, "moderate"] <- new_population[6, "moderate_population"] * dw_red_array["moderate", 6] * yldmoderate/ ((1 + discount_rate_daly) ^ 4.50)
+  change_in_daly[2, "moderate"] <- new_population[2, "moderate_population"] * dw_red_array["moderate", 1] * yldmoderate/ ((1 + discount_rate_daly) ^ 0.50)
+  change_in_daly[3, "moderate"] <- new_population[3, "moderate_population"] * dw_red_array["moderate", 2] * yldmoderate/ ((1 + discount_rate_daly) ^ 1.50)
+  change_in_daly[4, "moderate"] <- new_population[4, "moderate_population"] * dw_red_array["moderate", 3] * yldmoderate/ ((1 + discount_rate_daly) ^ 2.50)
+  change_in_daly[5, "moderate"] <- new_population[5, "moderate_population"] * dw_red_array["moderate", 4] * yldmoderate/ ((1 + discount_rate_daly) ^ 3.50)
+  change_in_daly[6, "moderate"] <- new_population[6, "moderate_population"] * dw_red_array["moderate", 5] * yldmoderate/ ((1 + discount_rate_daly) ^ 4.50)
   
-  change_in_daly[2, "severe"] <- new_population[2, "severe_population"] * dw_red_array["severe", 2] * yldsevere/ ((1 + discount_rate_daly) ^ 0.50)
-  change_in_daly[3, "severe"] <- new_population[3, "severe_population"] * dw_red_array["severe", 3] * yldsevere/ ((1 + discount_rate_daly) ^ 1.50)
-  change_in_daly[4, "severe"] <- new_population[4, "severe_population"] * dw_red_array["severe", 4] * yldsevere/ ((1 + discount_rate_daly) ^ 2.50)
-  change_in_daly[5, "severe"] <- new_population[5, "severe_population"] * dw_red_array["severe", 5] * yldsevere/ ((1 + discount_rate_daly) ^ 3.50)
-  change_in_daly[6, "severe"] <- new_population[6, "severe_population"] * dw_red_array["severe", 6] * yldsevere/ ((1 + discount_rate_daly) ^ 4.50)
+  change_in_daly[2, "severe"] <- new_population[2, "severe_population"] * dw_red_array["severe", 1] * yldsevere/ ((1 + discount_rate_daly) ^ 0.50)
+  change_in_daly[3, "severe"] <- new_population[3, "severe_population"] * dw_red_array["severe", 2] * yldsevere/ ((1 + discount_rate_daly) ^ 1.50)
+  change_in_daly[4, "severe"] <- new_population[4, "severe_population"] * dw_red_array["severe", 3] * yldsevere/ ((1 + discount_rate_daly) ^ 2.50)
+  change_in_daly[5, "severe"] <- new_population[5, "severe_population"] * dw_red_array["severe", 4] * yldsevere/ ((1 + discount_rate_daly) ^ 3.50)
+  change_in_daly[6, "severe"] <- new_population[6, "severe_population"] * dw_red_array["severe", 5] * yldsevere/ ((1 + discount_rate_daly) ^ 4.50)
   
   change_in_daly[2, "averted"] <- -(change_in_daly[2, "dwmild"] - change_in_daly[1,"dwmild"] + change_in_daly[2, "dwmoderate"] - change_in_daly[1,"dwmoderate"] + change_in_daly[2,"dwsevere"] - change_in_daly[1,"dwsevere"]) / (1 + discount_rate_daly)^0.50
   change_in_daly[3, "averted"] <- -(change_in_daly[3, "dwmild"] - change_in_daly[1,"dwmild"] + change_in_daly[3, "dwmoderate"] - change_in_daly[1,"dwmoderate"] + change_in_daly[3,"dwsevere"] - change_in_daly[1,"dwsevere"]) / (1 + discount_rate_daly)^1.50
@@ -1664,9 +1663,9 @@ cost_p_array_sim <- replicate(sim_runs, {
 
 
 change_in_costs <-  array(NA_real_,
-                             dim = c(6,4),
+                             dim = c(6,6),
                              dimnames = list(Year = 0:5,
-                                             Severity = c("mild", "moderate", "severe", "total")))
+                                             Severity = c("incidence","mild", "moderate", "severe", "relapse", "total")))
 
 
 suppressWarnings({
@@ -1674,6 +1673,13 @@ change_in_costs_sim <- lapply(1:length(population_sim), function(i){
   
   new_population <- population_sim[[i]]
   cost_p_array <- cost_p_array_sim[[i]]
+  
+  change_in_costs[2,"incidence"] <- Incidence * (sum(df_prev_sub$cov * cost_p_array[, "prev_sub_costs"], na.rm = TRUE)) / ((1 + disc_rate_cost)^0.5)
+  change_in_costs[3,"incidence"] <- Incidence * (sum(df_prev_sub$cov * cost_p_array[, "prev_sub_costs"], na.rm = TRUE)) / ((1 + disc_rate_cost)^1.5)
+  change_in_costs[4,"incidence"] <- Incidence * (sum(df_prev_sub$cov * cost_p_array[, "prev_sub_costs"], na.rm = TRUE)) / ((1 + disc_rate_cost)^2.5)
+  change_in_costs[5,"incidence"] <- Incidence * (sum(df_prev_sub$cov * cost_p_array[, "prev_sub_costs"], na.rm = TRUE)) / ((1 + disc_rate_cost)^3.5)
+  change_in_costs[6,"incidence"] <- Incidence * (sum(df_prev_sub$cov * cost_p_array[, "prev_sub_costs"], na.rm = TRUE)) / ((1 + disc_rate_cost)^4.5)
+  
   
   change_in_costs[2,"mild"] <- (new_population[2, "mild_population"]) * (sum(df_tr_mild$cov * cost_p_array[ ,"t_mild_costs"], na.rm = TRUE)) / ((1+ disc_rate_cost)^0.5)
   change_in_costs[3,"mild"] <- (new_population[3, "mild_population"]) * (sum(df_tr_mild$cov * cost_p_array[ ,"t_mild_costs"], na.rm = TRUE)) / ((1+ disc_rate_cost)^1.5)
@@ -1693,8 +1699,27 @@ change_in_costs_sim <- lapply(1:length(population_sim), function(i){
   change_in_costs[5,"severe"] <- (new_population[5, "severe_population"]) * (sum(df_tr_sev$cov * cost_p_array[ ,"t_sev_costs"], na.rm = TRUE)) / ((1+ disc_rate_cost)^3.5)
   change_in_costs[6,"severe"] <- (new_population[6, "severe_population"]) * (sum(df_tr_sev$cov * cost_p_array[ ,"t_sev_costs"], na.rm = TRUE)) / ((1+ disc_rate_cost)^4.5)
   
-  change_in_costs[,"total"] <- rowSums(change_in_costs[,c("mild", "moderate", "severe")])
+  change_in_costs[2, "relapse"] <- (sum(new_population[1, "mild_5x_1_year"], new_population[1, "moderate_5x_1_year"], new_population[1, "severe_5x_1_year"], 
+                                        new_population[1, "mild_4x_1_year"], new_population[1, "moderate_4x_1_year"], new_population[1, "severe_4x_1_year"], 
+                                        new_population[1, "mild_3x_1_year"], new_population[1, "moderate_3x_1_year"], new_population[1, "severe_3x_1_year"]) * (sum(df_prev_rec$cov * cost_p_array[ ,"prev_rec_costs"], na.rm = TRUE))) / ((1 + disc_rate_cost)^0.5) 
   
+  change_in_costs[3, "relapse"] <- (sum(new_population[2, "mild_5x_1_year"], new_population[2, "moderate_5x_1_year"], new_population[2, "severe_5x_1_year"], 
+                                        new_population[2, "mild_4x_1_year"], new_population[2, "moderate_4x_1_year"], new_population[2, "severe_4x_1_year"], 
+                                        new_population[2, "mild_3x_1_year"], new_population[2, "moderate_3x_1_year"], new_population[2, "severe_3x_1_year"]) * (sum(df_prev_rec$cov * cost_p_array[ ,"prev_rec_costs"], na.rm =TRUE))) / ((1 + disc_rate_cost)^1.5)
+  
+  change_in_costs[4, "relapse"] <- (sum(new_population[3, "mild_5x_1_year"], new_population[3, "moderate_5x_1_year"], new_population[3, "severe_5x_1_year"], 
+                                        new_population[3, "mild_4x_1_year"], new_population[3, "moderate_4x_1_year"], new_population[3, "severe_4x_1_year"], 
+                                        new_population[3, "mild_3x_1_year"], new_population[3, "moderate_3x_1_year"], new_population[3, "severe_3x_1_year"]) * (sum(df_prev_rec$cov * cost_p_array[ ,"prev_rec_costs"], na.rm = TRUE))) / ((1 + disc_rate_cost)^2.5) 
+  
+  change_in_costs[5, "relapse"] <- (sum(new_population[4, "mild_5x_1_year"], new_population[4, "moderate_5x_1_year"], new_population[4, "severe_5x_1_year"], 
+                                        new_population[4, "mild_4x_1_year"], new_population[4, "moderate_4x_1_year"], new_population[4, "severe_4x_1_year"], 
+                                        new_population[4, "mild_3x_1_year"], new_population[4, "moderate_3x_1_year"], new_population[4, "severe_3x_1_year"]) * (sum(df_prev_rec$cov * cost_p_array[ ,"prev_rec_costs"], na.rm = TRUE))) / ((1 + disc_rate_cost)^3.5)
+  
+  change_in_costs[6, "relapse"] <- (sum(new_population[5, "mild_5x_1_year"], new_population[5, "moderate_5x_1_year"], new_population[5, "severe_5x_1_year"], 
+                                        new_population[5, "mild_4x_1_year"], new_population[5, "moderate_4x_1_year"], new_population[5, "severe_4x_1_year"], 
+                                        new_population[5, "mild_3x_1_year"], new_population[5, "moderate_3x_1_year"], new_population[5, "severe_3x_1_year"]) * (sum(df_prev_rec$cov * cost_p_array[ ,"prev_rec_costs"], na.rm = TRUE))) / ((1 + disc_rate_cost)^4.5) 
+  
+  change_in_costs[,"total"] <- rowSums(change_in_costs[,c("incidence", "mild", "moderate", "severe", "relapse")])
   
   return(change_in_costs)
   })
@@ -1716,8 +1741,8 @@ for(i in 1:sim_runs){
   qaly_cost_array[i, "QALYs"] <- sum(change_in_daly[,"total dalys"], na.rm = TRUE)
 }
 
-return(qaly_cost_array)
 
+return(qaly_cost_array)
 }
 
 

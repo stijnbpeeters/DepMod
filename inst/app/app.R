@@ -75,7 +75,7 @@ ui <- page_navbar(
     card(
       card_body(
         numericInput("sim", "Simulations", 1000, 0, Inf, 1),
-        numericInput("n_pat", "Patients (n)", 1000, min = 1, step = 1),
+        numericInput("n_pat", "Target Population (n)", 10518000, min = 1, step = 1),
         numericInput("wtp_per_qaly", "WTP per QALY (€)", value = 50000, min = 0, step = 1000),
         hr(),
         actionButton("run_model", "Run model", class = "btn btn-primary w-100")
@@ -245,8 +245,8 @@ ui <- page_navbar(
                             card(
                               card_header("Discounting"),
                               card_body(
-                                numericInput("discount_rate_daly_av", "Discount rate DALY averted", 1.50, 0, Inf, 0.01),
-                                numericInput("discount_rate_cost", "Discount rate costs", 4.00, 0, Inf, 0.01)
+                                numericInput("discount_rate_daly_av", "Discount rate DALY averted", 0.015, 0, Inf, 0.01),
+                                numericInput("discount_rate_cost", "Discount rate costs", 0.04, 0, Inf, 0.01)
                               )
                             )
                      ),
@@ -355,7 +355,7 @@ server <- function(input, output, session) {
   # NULL-coalescing helper to build reactive dataframes
   `%||%` <- function(x, y) if (is.null(x)) y else x
   
-  # ---------- NEW: central defaults + helpers (used by all DF reactives) ----------
+  # ---------- central defaults + helpers (used by all DF reactives) ----------
   .defaults <- list(
     base = list(
       prev_sub = list(i1 = list(cov=0.0, adh=56, rr=21, n=30, hc=160, soc=297)),
@@ -960,11 +960,7 @@ server <- function(input, output, session) {
     adh_vec <- vapply(seq_len(n_int), function(i) get_num(paste0("prev_rec_adh_base_", i)), numeric(1)) / 100
     
     rr_vec <- vapply(seq_len(n_int), function(i) {
-      if (i == 1) {
-        get_num("prev_rec_1_RR_base_1") / 100
-      } else {
-        get_num(paste0("prev_rec_eff_base_", i))
-      }
+      get_num(paste0("prev_rec_1_RR_base_", i)) / 100
     }, numeric(1))
     
     n_vec   <- vapply(seq_len(n_int), function(i) get_num(paste0("prev_rec_n_base_", i)), numeric(1))
@@ -1541,11 +1537,7 @@ server <- function(input, output, session) {
     adh_vec <- vapply(seq_len(n_int), function(i) get_num(paste0("prev_rec_adh_alt_", i)), numeric(1)) / 100
     
     rr_vec <- vapply(seq_len(n_int), function(i) {
-      if (i == 1) {
-        get_num("prev_rec_1_RR_alt_1") / 100
-      } else {
-        get_num(paste0("prev_rec_eff_alt_", i))
-      }
+      get_num(paste0("prev_rec_1_RR_alt_", i)) / 100
     }, numeric(1))
     
     n_vec   <- vapply(seq_len(n_int), function(i) get_num(paste0("prev_rec_n_alt_", i)), numeric(1))
@@ -1577,7 +1569,7 @@ server <- function(input, output, session) {
   # Transition matrix
   # 1) Define vals BEFORE any use in the modal
   vals <- reactiveValues(
-    pop_inc = 0.00128,
+    pop_inc = 0.0128,
     
     inc_mild = 0.30,  inc_mod = 0.47,  inc_sev = 0.23,
     
@@ -1926,9 +1918,8 @@ server <- function(input, output, session) {
     
     # Run your function with named args
     tm <- do.call(func_first_part_model, args_first)
+
     
-    
-    print("first part ran")
     # Run the second part of the model, first for base
     res_base <- fun_sim_model(
       transition_matrix        = tm,  
@@ -1981,7 +1972,7 @@ server <- function(input, output, session) {
     )
     
     res_alt <- fun_sim_model(
-      transition_matrix        = tm,  # reactive -> ()
+      transition_matrix        = tm,  
       sim_runs                 = req(as.integer(input$sim)),
       total_population         = req(as.integer(input$n_pat)),
       df_prev_sub              = df_prev_sub_alt(),
@@ -2062,7 +2053,7 @@ server <- function(input, output, session) {
       check.names = FALSE
     )
     
-    ce_draws(def_df)   # <— make it visible to all outputs
+    ce_draws(def_df)   
     
     isolate(ce_draws(def_df))
     
