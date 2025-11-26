@@ -329,8 +329,7 @@ server <- function(input, output, session) {
       numericInput("prev_sub_adh_base_1", "Adherence (%)",56,  0, 100, 0.1),
       numericInput("prev_sub_1_RR_base_1", "1 - RR (%)", 21,  0, 100, 0.1),
       numericInput("prev_sub_n_base_1", "n", 30,  0, Inf, 1),
-      numericInput("prev_sub_hc_cost_base_1","Healthcare costs (€)",  160,  0, Inf, 1),
-      numericInput("prev_sub_soc_cost_base_1", "Societal costs (€)",    297,  0, Inf, 1)
+      numericInput("prev_sub_hc_cost_base_1","Healthcare costs (€)",  160,  0, Inf, 1)
     )
   })
   
@@ -345,7 +344,6 @@ server <- function(input, output, session) {
         numericInput(paste0("prev_sub_eff_base_", i), "Effectiveness (1 - RR)", 0, 0, 1, 0.01),
         numericInput(paste0("prev_sub_n_base_",   i), "Population (n)", 0, 0, Inf, 1),
         numericInput(paste0("prev_sub_hc_cost_base_",  i), "Healthcare costs (€)", 0, 0, Inf, 1),
-        numericInput(paste0("prev_sub_soc_cost_base_", i), "Societal costs (€)", 0, 0, Inf, 1),
         hr()
       )
     })
@@ -427,7 +425,6 @@ server <- function(input, output, session) {
         `1-RR` = numeric(0),
         n = numeric(0),
         `healthcare costs` = numeric(0),
-        `societal costs` = numeric(0),
         check.names = FALSE,
         stringsAsFactors = FALSE
       ))
@@ -462,7 +459,6 @@ server <- function(input, output, session) {
       `1-RR` = rr_vec,
       n = n_vec,
       `healthcare costs` = hc_vec,
-      `societal costs` = soc_vec,
       check.names = FALSE,
       stringsAsFactors = FALSE
     )
@@ -498,7 +494,6 @@ server <- function(input, output, session) {
       numericInput("mild_d_base_1", "d", 0.33,  0, Inf, 0.01),
       numericInput("mild_n_base_1", "n", 30,  0, Inf, 1),
       numericInput("mild_hc_cost_base_1","Healthcare costs (€)",  265,  0, Inf, 1),
-      numericInput("mild_soc_cost_base_1", "Societal costs (€)",    441,  0, Inf, 1)
     )
   })
   
@@ -512,7 +507,6 @@ server <- function(input, output, session) {
       numericInput("mild_d_base_2", "d", 0.51,  0, Inf, 0.01),
       numericInput("mild_n_base_2", "n", 30,  0, Inf, 1),
       numericInput("mild_hc_cost_base_2","Healthcare costs (€)",  962,  0, Inf, 1),
-      numericInput("mild_soc_cost_base_2", "Societal costs (€)",    1491,  0, Inf, 1)
     )
   })
   
@@ -528,7 +522,6 @@ server <- function(input, output, session) {
         numericInput(paste0("mild_d_base_", i), "d", 0, 0, 1, 0.01),
         numericInput(paste0("mild_n_base_",   i), "Population (n)", 0, 0, Inf, 1),
         numericInput(paste0("mild_hc_cost_base_",  i), "Healthcare costs (€)", 0, 0, Inf, 1),
-        numericInput(paste0("mild_soc_cost_base_", i), "Societal costs (€)", 0, 0, Inf, 1),
         hr()
       )
     })
@@ -543,8 +536,7 @@ server <- function(input, output, session) {
       numericInput("mild_adh_base_1", "Adherence (%)",43.0,  0, 100, 0.1),
       numericInput("mild_d_base_1", "d", 0.33,  0, Inf, 0.01),
       numericInput("mild_n_base_1", "n", 30,  0, Inf, 1),
-      numericInput("mild_hc_cost_base_1","Healthcare costs (€)",  265,  0, Inf, 1),
-      numericInput("mild_soc_cost_base_1", "Societal costs (€)",    441,  0, Inf, 1)
+      numericInput("mild_hc_cost_base_1","Healthcare costs (€)",  265,  0, Inf, 1)
     )
   })
   
@@ -556,8 +548,8 @@ server <- function(input, output, session) {
       numericInput("mild_adh_base_2", "Adherence (%)",56.0,  0, 100, 0.1),
       numericInput("mild_d_base_2", "d", 0.51,  0, Inf, 0.01),
       numericInput("mild_n_base_2", "n", 30,  0, Inf, 1),
-      numericInput("mild_hc_cost_base_2","Healthcare costs (€)",  962,  0, Inf, 1),
-      numericInput("mild_soc_cost_base_2", "Societal costs (€)",    1491,  0, Inf, 1)
+      numericInput("mild_hc_cost_base_2","Healthcare costs (€)",  962,  0, Inf, 1)
+      
     )
   })
   
@@ -571,7 +563,6 @@ server <- function(input, output, session) {
         numericInput(paste0("mild_d_base_", i), "d", 0, 0, 1, 0.01),
         numericInput(paste0("mild_n_base_",   i), "Population (n)", 0, 0, Inf, 1),
         numericInput(paste0("mild_hc_cost_base_",  i), "Healthcare costs (€)", 0, 0, Inf, 1),
-        numericInput(paste0("mild_soc_cost_base_", i), "Societal costs (€)", 0, 0, Inf, 1),
         hr()
       )
     })
@@ -590,7 +581,6 @@ server <- function(input, output, session) {
         d = numeric(0),
         n = numeric(0),
         `healthcare costs` = numeric(0),
-        `societal costs` = numeric(0),
         check.names = FALSE,
         stringsAsFactors = FALSE
       ))
@@ -613,7 +603,6 @@ server <- function(input, output, session) {
       d   = d_vec,
       n   = n_vec,
       `healthcare costs` = hc_vec,
-      `societal costs`   = soc_vec,
       check.names = FALSE,
       stringsAsFactors = FALSE
     )
@@ -652,8 +641,7 @@ server <- function(input, output, session) {
       numericInput("mod_adh_base_1", "Adherence (%)", 43.0,  0, 100, 0.1),
       numericInput("mod_d_base_1", "d", 0.33,  0, Inf, 0.01),
       numericInput("mod_n_base_1", "n", 30,  0, Inf, 1),
-      numericInput("mod_hc_cost_base_1","Healthcare costs (€)",  248,  0, Inf, 1),
-      numericInput("mod_soc_cost_base_1", "Societal costs (€)",    441,  0, Inf, 1)
+      numericInput("mod_hc_cost_base_1","Healthcare costs (€)",  248,  0, Inf, 1)
     )
   })
   
@@ -665,8 +653,7 @@ server <- function(input, output, session) {
       numericInput("mod_adh_base_2", "Adherence (%)",56.0,  0, 100, 0.1),
       numericInput("mod_d_base_2", "d", 0.51,  0, Inf, 0.01),
       numericInput("mod_n_base_2", "n", 30,  0, Inf, 1),
-      numericInput("mod_hc_cost_base_2","Healthcare costs (€)",  901,  0, Inf, 1),
-      numericInput("mod_soc_cost_base_2", "Societal costs (€)",    1491,  0, Inf, 1)
+      numericInput("mod_hc_cost_base_2","Healthcare costs (€)",  901,  0, Inf, 1)
     )
   })
   
@@ -681,7 +668,6 @@ server <- function(input, output, session) {
         numericInput(paste0("mod_d_base_", i), "d", 0, 0, 1, 0.01),
         numericInput(paste0("mod_n_base_",   i), "Population (n)", 0, 0, Inf, 1),
         numericInput(paste0("mod_hc_cost_base_",  i), "Healthcare costs (€)", 0, 0, Inf, 1),
-        numericInput(paste0("mod_soc_cost_base_", i), "Societal costs (€)", 0, 0, Inf, 1),
         hr()
       )
     })
@@ -700,7 +686,6 @@ server <- function(input, output, session) {
         d = numeric(0),
         n = numeric(0),
         `healthcare costs` = numeric(0),
-        `societal costs` = numeric(0),
         check.names = FALSE,
         stringsAsFactors = FALSE
       ))
@@ -723,7 +708,6 @@ server <- function(input, output, session) {
       d   = d_vec,
       n   = n_vec,
       `healthcare costs` = hc_vec,
-      `societal costs`   = soc_vec,
       check.names = FALSE,
       stringsAsFactors = FALSE
     )
@@ -761,8 +745,7 @@ server <- function(input, output, session) {
       numericInput("sev_adh_base_1", "Adherence (%)", 68.0,  0, 100, 0.1),
       numericInput("sev_d_base_1", "d", 0.51,  0, Inf, 0.01),
       numericInput("sev_n_base_1", "n", 30,  0, Inf, 1),
-      numericInput("sev_hc_cost_base_1","Healthcare costs (€)",  1984,  0, Inf, 1),
-      numericInput("sev_soc_cost_base_1", "Societal costs (€)",    1652,  0, Inf, 1)
+      numericInput("sev_hc_cost_base_1","Healthcare costs (€)",  1984,  0, Inf, 1)
     )
   })
   
@@ -774,8 +757,7 @@ server <- function(input, output, session) {
       numericInput("sev_adh_base_2", "Adherence (%)",44.0,  0, 100, 0.1),
       numericInput("sev_d_base_2", "d", 0.30,  0, Inf, 0.01),
       numericInput("sev_n_base_2", "n", 30,  0, Inf, 1),
-      numericInput("sev_hc_cost_base_2","Healthcare costs (€)",  607,  0, Inf, 1),
-      numericInput("sev_soc_cost_base_2", "Societal costs (€)",    358,  0, Inf, 1)
+      numericInput("sev_hc_cost_base_2","Healthcare costs (€)",  607,  0, Inf, 1)
     )
   })
   
@@ -787,8 +769,7 @@ server <- function(input, output, session) {
       numericInput("sev_adh_base_3", "Adherence (%)",56.0,  0, 100, 0.1),
       numericInput("sev_d_base_3", "d", 0.51,  0, Inf, 0.01),
       numericInput("sev_n_base_3", "n", 30,  0, Inf, 1),
-      numericInput("sev_hc_cost_base_3","Healthcare costs (€)",  679,  0, Inf, 1),
-      numericInput("sev_soc_cost_base_3", "Societal costs (€)",    415,  0, Inf, 1)
+      numericInput("sev_hc_cost_base_3","Healthcare costs (€)",  679,  0, Inf, 1)
     )
   })
   
@@ -804,7 +785,6 @@ server <- function(input, output, session) {
         numericInput(paste0("sev_d_base_", i), "d", 0, 0, 1, 0.01),
         numericInput(paste0("sev_n_base_",   i), "Population (n)", 0, 0, Inf, 1),
         numericInput(paste0("sev_hc_cost_base_",  i), "Healthcare costs (€)", 0, 0, Inf, 1),
-        numericInput(paste0("sev_soc_cost_base_", i), "Societal costs (€)", 0, 0, Inf, 1),
         hr()
       )
     })
@@ -823,7 +803,6 @@ server <- function(input, output, session) {
         d = numeric(0),
         n = numeric(0),
         `healthcare costs` = numeric(0),
-        `societal costs` = numeric(0),
         check.names = FALSE,
         stringsAsFactors = FALSE
       ))
@@ -846,7 +825,6 @@ server <- function(input, output, session) {
       d   = d_vec,
       n   = n_vec,
       `healthcare costs` = hc_vec,
-      `societal costs`   = soc_vec,
       check.names = FALSE,
       stringsAsFactors = FALSE
     )
@@ -884,8 +862,7 @@ server <- function(input, output, session) {
       numericInput("prev_rec_adh_base_1", "Adherence (%)", 42.0,  0, 100, 0.1),
       numericInput("prev_rec_1_RR_base_1", "1 - RR (%)", 25.0,  0, 100, 0.1),
       numericInput("prev_rec_n_base_1", "n", 30,  0, Inf, 1),
-      numericInput("prev_rec_hc_cost_base_1","Healthcare costs (€)",  1002,  0, Inf, 1),
-      numericInput("prev_rec_soc_cost_base_1", "Societal costs (€)",    680,  0, Inf, 1)
+      numericInput("prev_rec_hc_cost_base_1","Healthcare costs (€)",  1002,  0, Inf, 1)
     )
   })
   
@@ -897,8 +874,7 @@ server <- function(input, output, session) {
       numericInput("prev_rec_adh_base_2", "Adherence (%)", 68.0,  0, 100, 0.1),
       numericInput("prev_rec_1_RR_base_2", "1 - RR (%)", 34.0,  0, 100, 0.1),
       numericInput("prev_rec_n_base_2", "n", 30,  0, Inf, 1),
-      numericInput("prev_rec_hc_cost_base_2","Healthcare costs (€)",  361,  0, Inf, 1),
-      numericInput("prev_rec_soc_cost_base_2", "Societal costs (€)",    540,  0, Inf, 1)
+      numericInput("prev_rec_hc_cost_base_2","Healthcare costs (€)",  361,  0, Inf, 1)
     )
   })
   
@@ -910,8 +886,7 @@ server <- function(input, output, session) {
       numericInput("prev_rec_adh_base_3", "Adherence (%)", 56.0,  0, 100, 0.1),
       numericInput("prev_rec_1_RR_base_3", "1 - RR (%)", 32.0,  0, 100, 0.1),
       numericInput("prev_rec_n_base_3", "n", 30,  0, Inf, 1),
-      numericInput("prev_rec_hc_cost_base_3","Healthcare costs (€)",  429,  0, Inf, 1),
-      numericInput("prev_rec_soc_cost_base_3", "Societal costs (€)",    537,  0, Inf, 1)
+      numericInput("prev_rec_hc_cost_base_3","Healthcare costs (€)",  429,  0, Inf, 1)
     )
   })
   
@@ -927,7 +902,6 @@ server <- function(input, output, session) {
         numericInput(paste0("prev_rec_eff_base_", i), "Effectiveness (1 - RR)", 0, 0, 1, 0.01),
         numericInput(paste0("prev_rec_n_base_",   i), "Population (n)", 0, 0, Inf, 1),
         numericInput(paste0("prev_rec_hc_cost_base_",  i), "Healthcare costs (€)", 0, 0, Inf, 1),
-        numericInput(paste0("prev_rec_soc_cost_base_", i), "Societal costs (€)", 0, 0, Inf, 1),
         hr()
       )
     })
@@ -947,7 +921,6 @@ server <- function(input, output, session) {
         `1-RR` = numeric(0),
         n = numeric(0),
         `healthcare costs` = numeric(0),
-        `societal costs` = numeric(0),
         check.names = FALSE,
         stringsAsFactors = FALSE
       ))
@@ -974,7 +947,6 @@ server <- function(input, output, session) {
       `1-RR` = rr_vec,
       n = n_vec,
       `healthcare costs` = hc_vec,
-      `societal costs` = soc_vec,
       check.names = FALSE,
       stringsAsFactors = FALSE
     )
@@ -1020,8 +992,7 @@ server <- function(input, output, session) {
       numericInput("prev_sub_adh_alt_1", "Adherence (%)",56,  0, 100, 0.1),
       numericInput("prev_sub_1_RR_alt_1", "1 - RR (%)", 21,  0, 100, 0.1),
       numericInput("prev_sub_n_alt_1", "n", 30,  0, Inf, 1),
-      numericInput("prev_sub_hc_cost_alt_1","Healthcare costs (€)",  160,  0, Inf, 1),
-      numericInput("prev_sub_soc_cost_alt_1", "Societal costs (€)",    297,  0, Inf, 1)
+      numericInput("prev_sub_hc_cost_alt_1","Healthcare costs (€)",  160,  0, Inf, 1)
     )
   })
   
@@ -1036,7 +1007,6 @@ server <- function(input, output, session) {
         numericInput(paste0("prev_sub_eff_alt_", i), "Effectiveness (1 - RR)", 0, 0, 1, 0.01),
         numericInput(paste0("prev_sub_n_alt_",   i), "Population (n)", 0, 0, Inf, 1),
         numericInput(paste0("prev_sub_hc_cost_alt_",  i), "Healthcare costs (€)", 0, 0, Inf, 1),
-        numericInput(paste0("prev_sub_soc_cost_alt_", i), "Societal costs (€)", 0, 0, Inf, 1),
         hr()
       )
     })
@@ -1056,7 +1026,6 @@ server <- function(input, output, session) {
         `1-RR` = numeric(0),
         n = numeric(0),
         `healthcare costs` = numeric(0),
-        `societal costs` = numeric(0),
         check.names = FALSE,
         stringsAsFactors = FALSE
       ))
@@ -1087,7 +1056,6 @@ server <- function(input, output, session) {
       `1-RR` = rr_vec,
       n = n_vec,
       `healthcare costs` = hc_vec,
-      `societal costs` = soc_vec,
       check.names = FALSE,
       stringsAsFactors = FALSE
     )
@@ -1120,8 +1088,7 @@ server <- function(input, output, session) {
       numericInput("mild_adh_alt_1", "Adherence (%)",43.0,  0, 100, 0.1),
       numericInput("mild_d_alt_1", "d", 0.33,  0, Inf, 0.01),
       numericInput("mild_n_alt_1", "n", 30,  0, Inf, 1),
-      numericInput("mild_hc_cost_alt_1","Healthcare costs (€)",  265,  0, Inf, 1),
-      numericInput("mild_soc_cost_alt_1", "Societal costs (€)",    441,  0, Inf, 1)
+      numericInput("mild_hc_cost_alt_1","Healthcare costs (€)",  265,  0, Inf, 1)
     )
   })
   
@@ -1133,8 +1100,7 @@ server <- function(input, output, session) {
       numericInput("mild_adh_alt_2", "Adherence (%)",56.0,  0, 100, 0.1),
       numericInput("mild_d_alt_2", "d", 0.51,  0, Inf, 0.01),
       numericInput("mild_n_alt_2", "n", 30,  0, Inf, 1),
-      numericInput("mild_hc_cost_alt_2","Healthcare costs (€)",  962,  0, Inf, 1),
-      numericInput("mild_soc_cost_alt_2", "Societal costs (€)",    1491,  0, Inf, 1)
+      numericInput("mild_hc_cost_alt_2","Healthcare costs (€)",  962,  0, Inf, 1)
     )
   })
   
@@ -1150,7 +1116,6 @@ server <- function(input, output, session) {
         numericInput(paste0("mild_d_alt_", i), "d", 0, 0, 1, 0.01),
         numericInput(paste0("mild_n_alt_",   i), "Population (n)", 0, 0, Inf, 1),
         numericInput(paste0("mild_hc_cost_alt_",  i), "Healthcare costs (€)", 0, 0, Inf, 1),
-        numericInput(paste0("mild_soc_cost_alt_", i), "Societal costs (€)", 0, 0, Inf, 1),
         hr()
       )
     })
@@ -1169,7 +1134,6 @@ server <- function(input, output, session) {
         d = numeric(0),
         n = numeric(0),
         `healthcare costs` = numeric(0),
-        `societal costs` = numeric(0),
         check.names = FALSE,
         stringsAsFactors = FALSE
       ))
@@ -1192,7 +1156,6 @@ server <- function(input, output, session) {
       d   = d_vec,
       n   = n_vec,
       `healthcare costs` = hc_vec,
-      `societal costs`   = soc_vec,
       check.names = FALSE,
       stringsAsFactors = FALSE
     )
@@ -1230,8 +1193,7 @@ server <- function(input, output, session) {
       numericInput("mod_adh_alt_1", "Adherence (%)", 43.0,  0, 100, 0.1),
       numericInput("mod_d_alt_1", "d", 0.33,  0, Inf, 0.01),
       numericInput("mod_n_alt_1", "n", 30,  0, Inf, 1),
-      numericInput("mod_hc_cost_alt_1","Healthcare costs (€)",  248,  0, Inf, 1),
-      numericInput("mod_soc_cost_alt_1", "Societal costs (€)",    441,  0, Inf, 1)
+      numericInput("mod_hc_cost_alt_1","Healthcare costs (€)",  248,  0, Inf, 1)
     )
   })
   
@@ -1243,8 +1205,7 @@ server <- function(input, output, session) {
       numericInput("mod_adh_alt_2", "Adherence (%)",56.0,  0, 100, 0.1),
       numericInput("mod_d_alt_2", "d", 0.51,  0, Inf, 0.01),
       numericInput("mod_n_alt_2", "n", 30,  0, Inf, 1),
-      numericInput("mod_hc_cost_alt_2","Healthcare costs (€)",  901,  0, Inf, 1),
-      numericInput("mod_soc_cost_alt_2", "Societal costs (€)",    1491,  0, Inf, 1)
+      numericInput("mod_hc_cost_alt_2","Healthcare costs (€)",  901,  0, Inf, 1)
     )
   })
   
@@ -1258,9 +1219,7 @@ server <- function(input, output, session) {
         numericInput(paste0("mod_adh_alt_", i), "Adherence (%)", 0, 0, 100, 0.1),
         numericInput(paste0("mod_d_alt_", i), "d", 0, 0, 1, 0.01),
         numericInput(paste0("mod_n_alt_",   i), "Population (n)", 0, 0, Inf, 1),
-        numericInput(paste0("mod_hc_cost_alt_",  i), "Healthcare costs (€)", 0, 0, Inf, 1),
-        numericInput(paste0("mod_soc_cost_alt_", i), "Societal costs (€)", 0, 0, Inf, 1),
-        hr()
+        numericInput(paste0("mod_hc_cost_alt_",  i), "Healthcare costs (€)", 0, 0, Inf, 1)
       )
     })
   })
@@ -1278,7 +1237,6 @@ server <- function(input, output, session) {
         d = numeric(0),
         n = numeric(0),
         `healthcare costs` = numeric(0),
-        `societal costs` = numeric(0),
         check.names = FALSE,
         stringsAsFactors = FALSE
       ))
@@ -1301,7 +1259,6 @@ server <- function(input, output, session) {
       d   = d_vec,
       n   = n_vec,
       `healthcare costs` = hc_vec,
-      `societal costs`   = soc_vec,
       check.names = FALSE,
       stringsAsFactors = FALSE
     )
@@ -1338,8 +1295,7 @@ server <- function(input, output, session) {
       numericInput("sev_adh_alt_1", "Adherence (%)", 68.0,  0, 100, 0.1),
       numericInput("sev_d_alt_1", "d", 0.51,  0, Inf, 0.01),
       numericInput("sev_n_alt_1", "n", 30,  0, Inf, 1),
-      numericInput("sev_hc_cost_alt_1","Healthcare costs (€)",  1984,  0, Inf, 1),
-      numericInput("sev_soc_cost_alt_1", "Societal costs (€)",    1652,  0, Inf, 1)
+      numericInput("sev_hc_cost_alt_1","Healthcare costs (€)",  1984,  0, Inf, 1)
     )
   })
   
@@ -1351,8 +1307,7 @@ server <- function(input, output, session) {
       numericInput("sev_adh_alt_2", "Adherence (%)",44.0,  0, 100, 0.1),
       numericInput("sev_d_alt_2", "d", 0.30,  0, Inf, 0.01),
       numericInput("sev_n_alt_2", "n", 30,  0, Inf, 1),
-      numericInput("sev_hc_cost_alt_2","Healthcare costs (€)",  607,  0, Inf, 1),
-      numericInput("sev_soc_cost_alt_2", "Societal costs (€)",    358,  0, Inf, 1)
+      numericInput("sev_hc_cost_alt_2","Healthcare costs (€)",  607,  0, Inf, 1)
     )
   })
   
@@ -1364,8 +1319,7 @@ server <- function(input, output, session) {
       numericInput("sev_adh_alt_3", "Adherence (%)",56.0,  0, 100, 0.1),
       numericInput("sev_d_alt_3", "d", 0.51,  0, Inf, 0.01),
       numericInput("sev_n_alt_3", "n", 30,  0, Inf, 1),
-      numericInput("sev_hc_cost_alt_3","Healthcare costs (€)",  679,  0, Inf, 1),
-      numericInput("sev_soc_cost_alt_3", "Societal costs (€)",    415,  0, Inf, 1)
+      numericInput("sev_hc_cost_alt_3","Healthcare costs (€)",  679,  0, Inf, 1)
     )
   })
   
@@ -1380,9 +1334,7 @@ server <- function(input, output, session) {
         numericInput(paste0("sev_adh_alt_", i), "Adherence (%)", 0, 0, 100, 0.1),
         numericInput(paste0("sev_d_alt_", i), "d", 0, 0, 1, 0.01),
         numericInput(paste0("sev_n_alt_",   i), "Population (n)", 0, 0, Inf, 1),
-        numericInput(paste0("sev_hc_cost_alt_",  i), "Healthcare costs (€)", 0, 0, Inf, 1),
-        numericInput(paste0("sev_soc_cost_alt_", i), "Societal costs (€)", 0, 0, Inf, 1),
-        hr()
+        numericInput(paste0("sev_hc_cost_alt_",  i), "Healthcare costs (€)", 0, 0, Inf, 1)
       )
     })
   })
@@ -1401,7 +1353,6 @@ server <- function(input, output, session) {
         d = numeric(0),
         n = numeric(0),
         `healthcare costs` = numeric(0),
-        `societal costs` = numeric(0),
         check.names = FALSE,
         stringsAsFactors = FALSE
       ))
@@ -1424,7 +1375,6 @@ server <- function(input, output, session) {
       d   = d_vec,
       n   = n_vec,
       `healthcare costs` = hc_vec,
-      `societal costs`   = soc_vec,
       check.names = FALSE,
       stringsAsFactors = FALSE
     )
@@ -1462,8 +1412,7 @@ server <- function(input, output, session) {
       numericInput("prev_rec_adh_alt_1", "Adherence (%)", 42.0,  0, 100, 0.1),
       numericInput("prev_rec_1_RR_alt_1", "1 - RR (%)", 25.0,  0, 100, 0.1),
       numericInput("prev_rec_n_alt_1", "n", 30,  0, Inf, 1),
-      numericInput("prev_rec_hc_cost_alt_1","Healthcare costs (€)",  1002,  0, Inf, 1),
-      numericInput("prev_rec_soc_cost_alt_1", "Societal costs (€)",    680,  0, Inf, 1)
+      numericInput("prev_rec_hc_cost_alt_1","Healthcare costs (€)",  1002,  0, Inf, 1)
     )
   })
   
@@ -1475,8 +1424,7 @@ server <- function(input, output, session) {
       numericInput("prev_rec_adh_alt_2", "Adherence (%)", 68.0,  0, 100, 0.1),
       numericInput("prev_rec_1_RR_alt_2", "1 - RR (%)", 34.0,  0, 100, 0.1),
       numericInput("prev_rec_n_alt_2", "n", 30,  0, Inf, 1),
-      numericInput("prev_rec_hc_cost_alt_2","Healthcare costs (€)",  361,  0, Inf, 1),
-      numericInput("prev_rec_soc_cost_alt_2", "Societal costs (€)",    540,  0, Inf, 1)
+      numericInput("prev_rec_hc_cost_alt_2","Healthcare costs (€)",  361,  0, Inf, 1)
     )
   })
   
@@ -1489,8 +1437,7 @@ server <- function(input, output, session) {
       numericInput("prev_rec_1_RR_alt_3", "1 - RR (%)", 32.0,  0, 100, 0.1),
       numericInput("prev_rec_n_alt_3", "n"
                    , 30,  0, Inf, 1),
-      numericInput("prev_rec_hc_cost_alt_3","Healthcare costs (€)",  429,  0, Inf, 1),
-      numericInput("prev_rec_soc_cost_alt_3", "Societal costs (€)",    537,  0, Inf, 1)
+      numericInput("prev_rec_hc_cost_alt_3","Healthcare costs (€)",  429,  0, Inf, 1)
     )
   })
   
@@ -1506,7 +1453,6 @@ server <- function(input, output, session) {
         numericInput(paste0("prev_rec_eff_alt_", i), "Effectiveness (1 - RR)", 0, 0, 1, 0.01),
         numericInput(paste0("prev_rec_n_alt_",   i), "Population (n)", 0, 0, Inf, 1),
         numericInput(paste0("prev_rec_hc_cost_alt_",  i), "Healthcare costs (€)", 0, 0, Inf, 1),
-        numericInput(paste0("prev_rec_soc_cost_alt_", i), "Societal costs (€)", 0, 0, Inf, 1),
         hr()
       )
     })
@@ -1525,8 +1471,6 @@ server <- function(input, output, session) {
         `1-RR` = numeric(0),
         n = numeric(0),
         `healthcare costs` = numeric(0),
-        `societal costs` = numeric(0),
-        check.names = FALSE,
         stringsAsFactors = FALSE
       ))
     }
@@ -1552,7 +1496,6 @@ server <- function(input, output, session) {
       `1-RR` = rr_vec,
       n = n_vec,
       `healthcare costs` = hc_vec,
-      `societal costs` = soc_vec,
       check.names = FALSE,
       stringsAsFactors = FALSE
     )
