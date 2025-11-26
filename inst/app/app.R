@@ -652,7 +652,7 @@ server <- function(input, output, session) {
       numericInput("mod_adh_base_1", "Adherence (%)", 43.0,  0, 100, 0.1),
       numericInput("mod_d_base_1", "d", 0.33,  0, Inf, 0.01),
       numericInput("mod_n_base_1", "n", 30,  0, Inf, 1),
-      numericInput("mod_hc_cost_base_1","Healthcare costs (€)",  265,  0, Inf, 1),
+      numericInput("mod_hc_cost_base_1","Healthcare costs (€)",  248,  0, Inf, 1),
       numericInput("mod_soc_cost_base_1", "Societal costs (€)",    441,  0, Inf, 1)
     )
   })
@@ -661,11 +661,11 @@ server <- function(input, output, session) {
     if(rv_base$mod_count_base < 2) return(NULL)
     tagList(
       h4("Intervention 2"),
-      numericInput("mod_cov_base_2", "Coverage (%)", 17.0, 0, 100, 0.1),
+      numericInput("mod_cov_base_2", "Coverage (%)", 16.0, 0, 100, 0.1),
       numericInput("mod_adh_base_2", "Adherence (%)",56.0,  0, 100, 0.1),
       numericInput("mod_d_base_2", "d", 0.51,  0, Inf, 0.01),
       numericInput("mod_n_base_2", "n", 30,  0, Inf, 1),
-      numericInput("mod_hc_cost_base_2","Healthcare costs (€)",  962,  0, Inf, 1),
+      numericInput("mod_hc_cost_base_2","Healthcare costs (€)",  901,  0, Inf, 1),
       numericInput("mod_soc_cost_base_2", "Societal costs (€)",    1491,  0, Inf, 1)
     )
   })
@@ -1230,7 +1230,7 @@ server <- function(input, output, session) {
       numericInput("mod_adh_alt_1", "Adherence (%)", 43.0,  0, 100, 0.1),
       numericInput("mod_d_alt_1", "d", 0.33,  0, Inf, 0.01),
       numericInput("mod_n_alt_1", "n", 30,  0, Inf, 1),
-      numericInput("mod_hc_cost_alt_1","Healthcare costs (€)",  265,  0, Inf, 1),
+      numericInput("mod_hc_cost_alt_1","Healthcare costs (€)",  248,  0, Inf, 1),
       numericInput("mod_soc_cost_alt_1", "Societal costs (€)",    441,  0, Inf, 1)
     )
   })
@@ -1239,11 +1239,11 @@ server <- function(input, output, session) {
     if(rv_alt$mod_count_alt < 2) return(NULL)
     tagList(
       h4("Intervention 2"),
-      numericInput("mod_cov_alt_2", "Coverage (%)", 17.0, 0, 100, 0.1),
+      numericInput("mod_cov_alt_2", "Coverage (%)", 16.0, 0, 100, 0.1),
       numericInput("mod_adh_alt_2", "Adherence (%)",56.0,  0, 100, 0.1),
       numericInput("mod_d_alt_2", "d", 0.51,  0, Inf, 0.01),
       numericInput("mod_n_alt_2", "n", 30,  0, Inf, 1),
-      numericInput("mod_hc_cost_alt_2","Healthcare costs (€)",  962,  0, Inf, 1),
+      numericInput("mod_hc_cost_alt_2","Healthcare costs (€)",  901,  0, Inf, 1),
       numericInput("mod_soc_cost_alt_2", "Societal costs (€)",    1491,  0, Inf, 1)
     )
   })
@@ -1487,7 +1487,8 @@ server <- function(input, output, session) {
       numericInput("prev_rec_cov_alt_3", "Coverage (%)", 0.0, 0, 100, 0.1),
       numericInput("prev_rec_adh_alt_3", "Adherence (%)", 56.0,  0, 100, 0.1),
       numericInput("prev_rec_1_RR_alt_3", "1 - RR (%)", 32.0,  0, 100, 0.1),
-      numericInput("prev_rec_n_alt_3", "n", 30,  0, Inf, 1),
+      numericInput("prev_rec_n_alt_3", "n"
+                   , 30,  0, Inf, 1),
       numericInput("prev_rec_hc_cost_alt_3","Healthcare costs (€)",  429,  0, Inf, 1),
       numericInput("prev_rec_soc_cost_alt_3", "Societal costs (€)",    537,  0, Inf, 1)
     )
