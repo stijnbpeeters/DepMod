@@ -59,7 +59,7 @@ trimbos_theme <- bs_theme(
     .g-3 > [class^='col-'] { margin-bottom:1rem; } /* extra gap between stacked cols */
   ")
 
-# ---------- UI ----------
+# UI ----------------------------------------------------------------------
 ui <- page_navbar(
   title = tags$span(
     # drop a logo.png/svg into www/ and uncomment:
@@ -67,15 +67,18 @@ ui <- page_navbar(
     "DepMod"
   ),
   theme = trimbos_theme,
+
+
+
   
-  # LEFT SIDEBAR
+  # Left sidebar
   sidebar = sidebar(
     open = TRUE, width = 320,
     h4("Settings"),
     card(
       card_body(
         numericInput("sim", "Simulations", 1000, 0, Inf, 1),
-        numericInput("n_pat", "Target Population (n)", 10518000, min = 1, step = 1),
+        numericInput("n_pat", "Target Population (n)", 11222786, min = 1, step = 1),
         numericInput("wtp_per_qaly", "WTP per QALY (€)", value = 50000, min = 0, step = 1000),
         hr(),
         actionButton("run_model", "Run model", class = "btn btn-primary w-100")
@@ -83,7 +86,7 @@ ui <- page_navbar(
     )
   ),
   
-  # =================== TOP-LEVEL TABS ===================
+  # Top-level Tabs
   nav_panel("Input",
             # two-column layout: forms (left) and content (right)
             fluidRow(class = "g-3",
@@ -236,9 +239,9 @@ ui <- page_navbar(
                             card(
                               card_header("General"),
                               card_body(
-                                numericInput("exces_mort", "Excess mortality", 1.65, 0, Inf, 0.01),
+                                numericInput("exces_mort", "Excess mortality", 1.56, 0, Inf, 0.01),
                                 numericInput("retire_rate", "Retirement rate", 0.02128, 0, Inf, 0.00001),
-                                numericInput("death_rate", "Death rate", 0.00198, 0, Inf, 0.00001),
+                                numericInput("death_rate", "Death rate", 0.00197631, 0, Inf, 0.00001),
                                 numericInput("mean_duration_chron", "Mean duration of chronicity (years)", 3.96, 0, Inf, 0.01)
                               )
                             ),
@@ -353,7 +356,7 @@ server <- function(input, output, session) {
   # NULL-coalescing helper to build reactive dataframes
   `%||%` <- function(x, y) if (is.null(x)) y else x
   
-  # ---------- central defaults + helpers (used by all DF reactives) ----------
+  # Central defaults + helpers (used by all DF reactives) 
   .defaults <- list(
     base = list(
       prev_sub = list(i1 = list(cov=0.0, adh=56, rr=21, n=30, hc=160, soc=297)),
@@ -380,6 +383,7 @@ server <- function(input, output, session) {
   .defaults$alt <- .defaults$base
   
   .default_for_id <- function(id) {
+    
     # prev_sub/prev_rec:
     m1 <- regexec("^(prev_sub|prev_rec)_(cov|adh|1_RR|eff|n|hc_cost|soc_cost)_(base|alt)_(\\d+)$", id)
     r1 <- regmatches(id, m1)[[1]]
@@ -408,8 +412,6 @@ server <- function(input, output, session) {
     val <- input[[id]]
     if (is.null(val) || is.na(val)) as.numeric(dv) else as.numeric(val)
   }
-  # ---------- /NEW ----------
-  
   
   # Reactive dataframe
   
@@ -430,10 +432,10 @@ server <- function(input, output, session) {
       ))
     }
     
-    # NEW: use helper that falls back to defaults if inputs don't exist yet
+    # Helper that falls back to defaults if inputs don't exist yet
     get_num <- function(id, default = NULL) get_num_with_defaults(id, default)
     
-    # Coverage & adherence are 0–100 in BOTH first and later interventions -> store as proportions
+    # Coverage & adherence are 0–100 in both  first and later interventions then store as proportions
     cov_vec <- vapply(seq_len(n_int), function(i) get_num(paste0("prev_sub_cov_base_", i)), numeric(1)) / 100
     adh_vec <- vapply(seq_len(n_int), function(i) get_num(paste0("prev_sub_adh_base_", i)), numeric(1)) / 100
     
@@ -586,7 +588,6 @@ server <- function(input, output, session) {
       ))
     }
     
-    # NEW:
     get_num <- function(id, default = NULL) get_num_with_defaults(id, default)
     
     cov_vec <- vapply(seq_len(n_int), function(i) get_num(paste0("mild_cov_base_", i)), numeric(1)) / 100
@@ -926,7 +927,6 @@ server <- function(input, output, session) {
       ))
     }
     
-    # NEW:
     get_num <- function(id, default = NULL) get_num_with_defaults(id, default)
     
     cov_vec <- vapply(seq_len(n_int), function(i) get_num(paste0("prev_rec_cov_base_", i)), numeric(1)) / 100
@@ -1031,7 +1031,6 @@ server <- function(input, output, session) {
       ))
     }
     
-    # NEW:
     get_num <- function(id, default = NULL) get_num_with_defaults(id, default)
     
     cov_vec <- vapply(seq_len(n_int), function(i) get_num(paste0("prev_sub_cov_alt_", i)), numeric(1)) / 100
@@ -1139,7 +1138,6 @@ server <- function(input, output, session) {
       ))
     }
     
-    # NEW:
     get_num <- function(id, default = NULL) get_num_with_defaults(id, default)
     
     cov_vec <- vapply(seq_len(n_int), function(i) get_num(paste0("mild_cov_alt_", i)), numeric(1)) / 100
@@ -1475,7 +1473,6 @@ server <- function(input, output, session) {
       ))
     }
     
-    # NEW:
     get_num <- function(id, default = NULL) get_num_with_defaults(id, default)
     
     cov_vec <- vapply(seq_len(n_int), function(i) get_num(paste0("prev_rec_cov_alt_", i)), numeric(1)) / 100
@@ -1511,35 +1508,35 @@ server <- function(input, output, session) {
   
   
   # Transition matrix
-  # 1) Define vals BEFORE any use in the modal
+  # Definition of vals before any use in the modal
   vals <- reactiveValues(
-    pop_inc = 0.0128,
+    pop_inc = 0.01814794,
     
-    inc_mild = 0.30,  inc_mod = 0.47,  inc_sev = 0.23,
+    inc_mild = 0.318,  inc_mod = 0.195,  inc_sev = 0.487,
     
-    mild_rec = 0.60,  mild_part = 0.37,  mild_chr = 0.03,
-    mod_rec  = 0.48,  mod_part  = 0.50,  mod_chr  = 0.03,
-    sev_rec  = 0.51,  sev_part  = 0.46,  sev_chr  = 0.03,
+    mild_rec = 0.60,  mild_part = 0.37,  mild_chr = 0.04,
+    mod_rec  = 0.48,  mod_part  = 0.50,  mod_chr  = 0.04,
+    sev_rec  = 0.51,  sev_part  = 0.46,  sev_chr  = 0.04,
     
-    mildrec_one = 0.46, mildrec_rel = 0.54,
-    mildpart_one = 0.20, mildpart_rel = 0.80,
-    modrec_one  = 0.49, modrec_rel  = 0.51,
-    modpart_one = 0.25, modpart_rel = 0.75,
-    sevrec_one  = 0.49, sevrec_rel  = 0.51,
-    sevpart_one = 0.25, sevpart_rel = 0.75,
+    mildrec_one = 0.42, mildrec_rel = 0.58,
+    mildpart_one = 0.16, mildpart_rel = 0.84,
+    modrec_one  = 0.42, modrec_rel  = 0.58,
+    modpart_one = 0.16, modpart_rel = 0.84,
+    sevrec_one  = 0.42, sevrec_rel  = 0.58,
+    sevpart_one = 0.16, sevpart_rel = 0.84,
     
-    # Chronic -> End; your data had zeros—keeping that default
+    # Chronic
     mild_chr_end = 0.0,
     mod_chr_end  = 0.0,
     sev_chr_end  = 0.0
   )
   
-  ## ---------- 2) Modal for editing ----------
+  ## Modal for editing -
   observeEvent(input$edit_tt, {
     showModal(modalDialog(
       title = "Edit transition probabilities (0–1)",
       fluidRow(
-        # --- Incidence ---
+  # Incidence 
         column(3,
                strong("Incidence"),
                numericInput("pop_inc", "Population → Incidence", 
@@ -1553,7 +1550,7 @@ server <- function(input, output, session) {
                             value = isolate(vals$inc_sev),  min=0, max=1, step=1e-6)
         ),
         
-        # --- Mild ---
+    # Mild 
         column(3,
                strong("Mild"),
                numericInput("mild_rec",  "Mild → Recovery", value = isolate(vals$mild_rec),  min=0, max=1, step=1e-6),
@@ -1566,7 +1563,7 @@ server <- function(input, output, session) {
                numericInput("mildpart_rel","Partial(Mild) → Relapse",  value = isolate(vals$mildpart_rel), min=0, max=1, step=1e-6)
         ),
         
-        # --- Moderate ---
+     # Moderate
         column(3,
                strong("Moderate"),
                numericInput("mod_rec",  "Moderate → Recovery", value = isolate(vals$mod_rec),  min=0, max=1, step=1e-6),
@@ -1579,7 +1576,7 @@ server <- function(input, output, session) {
                numericInput("modpart_rel","Partial(Mod) → Relapse",  value = isolate(vals$modpart_rel), min=0, max=1, step=1e-6)
         ),
         
-        # --- Severe ---
+     # Severe 
         column(3,
                strong("Severe"),
                numericInput("sev_rec",  "Severe → Recovery", value = isolate(vals$sev_rec),  min=0, max=1, step=1e-6),
@@ -1601,7 +1598,7 @@ server <- function(input, output, session) {
   })
   
   
-  ## ---------- 3) Save back into vals so the plot updates ----------
+  ## Save back into vals so the plot updates 
   observeEvent(input$save_tt, {
     for (nm in names(reactiveValuesToList(vals))) {
       if (!is.null(input[[nm]])) vals[[nm]] <- input[[nm]]
@@ -1609,7 +1606,7 @@ server <- function(input, output, session) {
     removeModal()
   })
   
-  ## ---------- 4) Build full Mermaid from vals ----------
+  ## Build full Mermaid from vals
   lab <- function(p) sprintf("%.1f %%", 100 * as.numeric(p))
   
   mermaid_text <- reactive({
@@ -1704,7 +1701,7 @@ server <- function(input, output, session) {
       sep = "\n")
   })
   
-  ## ---------- 5) Render ----------
+  ## Render
   output$transition_tree <- DiagrammeR::renderDiagrammeR({
     DiagrammeR::mermaid(mermaid_text())  # keep 'graph LR' for DiagrammeR compatibility
   })
@@ -1722,13 +1719,16 @@ server <- function(input, output, session) {
   # Summary stats
   ce_stats <- reactive({
     df <- ce_df()
-    m_dC <- mean(df$dC, na.rm = TRUE)
+    m_dC <- mean(df$dC, na.rm = TRUE) / 1000
     m_dE <- mean(df$dE, na.rm = TRUE)
-    sd_dC <- sd(df$dC, na.rm = TRUE)
+    sd_dC <- sd(df$dC, na.rm = TRUE) / 1000
     sd_dE <- sd(df$dE, na.rm = TRUE)
     icer <- if (isTRUE(all.equal(m_dE, 0))) NA_real_ else m_dC / m_dE
-    pr_ce <- mean(wtp() * df$dE - df$dC > 0, na.rm = TRUE)
-    list(m_dC = m_dC, sd_dC = sd_dC, m_dE = m_dE, sd_dE = sd_dE, icer = icer, pr_ce = pr_ce)
+    INB <-  mean(wtp() * m_dE - m_dC, na.rm = TRUE)
+    pr_ce <- mean(wtp() * df$dE - (df$dC/1000) > 0, na.rm = TRUE)
+    CB <- m_dC /(m_dE * wtp() / 1000)
+    ROI <- (m_dE * wtp() / 1000) / m_dC
+    list(m_dC = m_dC, sd_dC = sd_dC, m_dE = m_dE, sd_dE = sd_dE, icer = icer, INB = INB, pr_ce = pr_ce, CB = CB, ROI = ROI)
   })
   
   # CE plane
@@ -1752,6 +1752,9 @@ server <- function(input, output, session) {
       `SD ΔCost (€)`  =  round(s$sd_dC, 2),
       `SD ΔQALY`      = round(s$sd_dE, 6),
       `ICER (€/QALY)`  = if (is.na(s$icer)) "NA" else format(round(s$icer, 2), big.mark = ","),
+      `INB` = round(s$INB, 2),
+      `C/B` = round(s$CB, 3),
+      `ROI` = round(s$ROI,3),
       `Pr(CE at WTP)`  = sprintf("%.1f%%", 100 * s$pr_ce),
       check.names = FALSE
     )
@@ -1859,7 +1862,6 @@ server <- function(input, output, session) {
       severepartialrelapse   = req(as.numeric(vals$sevpart_rel))
     )
     
-    
     # Run your function with named args
     tm <- do.call(func_first_part_model, args_first)
 
@@ -1964,13 +1966,11 @@ server <- function(input, output, session) {
       severepartialcured =  req(as.numeric(vals$sevpart_one)),
       severepartialrelapse = req(as.numeric(vals$sevpart_rel))
     )
-    
   
-    
     # 4) Avoid cbind of big matrices; compute incrementals directly
-    cost_base  <- as.numeric(res_base[, "Cost"])
+    cost_base  <- as.numeric(res_base[, "Cost"]) 
     qaly_base  <- as.numeric(res_base[, "QALYs"])
-    cost_alt   <- as.numeric(res_alt[,  "Cost"])
+    cost_alt   <- as.numeric(res_alt[,  "Cost"]) 
     qaly_alt   <- as.numeric(res_alt[,  "QALYs"])
     
     d_cost  <- cost_alt - cost_base
@@ -1992,7 +1992,7 @@ server <- function(input, output, session) {
       delta_cost  = d_cost,
       delta_QALYs = d_qaly,
       ICER        = icer,
-      NB          = inc_nb,
+      INB         = inc_nb,
       quadrant    = quad,
       check.names = FALSE
     )

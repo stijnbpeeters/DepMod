@@ -1,40 +1,40 @@
 #' Run base and alternative simulation models
 #'
-#' @description
-#' Wrapper function for running the DepMod model.  
-#' This function:
-#' 1. Builds the transition matrix using `func_first_part_model()`
-#' 2. Runs `fun_sim_model()` for both BASE and ALTERNATIVE scenarios.
+#' Wrapper for running the DepMod decision-analytic model under both base and
+#' alternative scenarios. The function first builds the transition matrix using
+#' \code{func_first_part_model()} and then runs \code{fun_sim_model()} for each
+#' scenario.
 #'
-#' This function requires:
+#' @param parameters Named list of model parameters (see Details).
+#' @param sim_runs Integer. Number of simulation runs. Default is 1000.
+#' @param total_population Integer. Total population size used in the simulation.
+#'   Default is 10518000.
+#' @param df_prev_sub_base Data frame for base scenario prevention
+#'   (sub-clinical depression).
+#' @param df_tr_mild_base Data frame for base scenario treatment (mild depression).
+#' @param df_tr_mod_base Data frame for base scenario treatment
+#'   (moderate depression).
+#' @param df_tr_sev_base Data frame for base scenario treatment
+#'   (severe depression).
+#' @param df_prev_rec_base Data frame for base scenario prevention
+#'   (recurrent depression).
+#' @param df_prev_sub_alt Data frame for alternative scenario prevention
+#'   (sub-clinical depression).
+#' @param df_tr_mild_alt Data frame for alternative scenario treatment
+#'   (mild depression).
+#' @param df_tr_mod_alt Data frame for alternative scenario treatment
+#'   (moderate depression).
+#' @param df_tr_sev_alt Data frame for alternative scenario treatment
+#'   (severe depression).
+#' @param df_prev_rec_alt Data frame for alternative scenario prevention
+#'   (recurrent depression).
 #'
-#' **(A) Data frames for the BASE scenario**
+#' @details
+#' The \code{parameters} list must contain numeric values controlling disease
+#' progression, recovery, relapse, disability weights, discounting, and cost
+#' accumulation. Required elements include:
 #'
-#' \describe{
-#'   \item{df_prev_sub_base}{Parameters for preventive interventions in sub-clinical depression.}
-#'   \item{df_tr_mild_base}{Treatment parameters for mild cases.}
-#'   \item{df_tr_mod_base}{Treatment parameters for moderate cases.}
-#'   \item{df_tr_sev_base}{Treatment parameters for severe cases.}
-#'   \item{df_prev_rec_base}{Parameters for preventive interventions targeting recurrent depression.}
-#' }
-#'
-#'
-#' **(B) Data frames for the ALTERNATIVE scenario**
-#'
-#' \describe{
-#'   \item{df_prev_sub_alt}{Alternative preventive intervention parameters (sub-clinical).}
-#'   \item{df_tr_mild_alt}{Alternative treatment parameters (mild).}
-#'   \item{df_tr_mod_alt}{Alternative treatment parameters (moderate).}
-#'   \item{df_tr_sev_alt}{Alternative treatment parameters (severe).}
-#'   \item{df_prev_rec_alt}{Alternative preventive parameters for recurrent depression.}
-#' }
-#'
-#'
-#' **(C) Simulation-wide numeric parameters (`parameters` list)**
-#'
-#' The list must contain the following numeric values:
-#'
-#' **General simulation parameters**
+#' \strong{General simulation parameters}
 #' \describe{
 #'   \item{dw_conversion_fact}{Disability-weight conversion factor.}
 #'   \item{discount_rate_daly}{Discount rate for DALYs.}
@@ -44,7 +44,7 @@
 #'   \item{mean_dur_chron}{Mean duration of chronic phase.}
 #' }
 #'
-#' **Population incidence inputs**
+#' \strong{Population incidence inputs}
 #' \describe{
 #'   \item{incidence_no_history}{Incidence among individuals without prior disease.}
 #'   \item{pmild}{Proportion of incident mild cases.}
@@ -52,7 +52,7 @@
 #'   \item{psevere}{Proportion of incident severe cases.}
 #' }
 #'
-#' **Stage-progression probabilities**
+#' \strong{Stage-progression probabilities}
 #' \describe{
 #'   \item{mildrecovery}{Recovery probability from mild depression.}
 #'   \item{mildpartial}{Partial remission probability (mild).}
@@ -67,25 +67,25 @@
 #'   \item{severechronic}{Chronic transition probability (severe).}
 #' }
 #'
-#' **Recovery-state outcomes**
+#' \strong{Recovery-state outcomes}
 #' \describe{
-#'   \item{mildrecoverycured}{Cure probability from mild–recovery.}
-#'   \item{mildrecoveryrelapse}{Relapse probability from mild–recovery.}
-#'   \item{mildpartialcured}{Cure probability from mild–partial.}
-#'   \item{mildpartialrelapse}{Relapse probability from mild–partial.}
+#'   \item{mildrecoverycured}{Cure probability from mild--recovery.}
+#'   \item{mildrecoveryrelapse}{Relapse probability from mild--recovery.}
+#'   \item{mildpartialcured}{Cure probability from mild--partial.}
+#'   \item{mildpartialrelapse}{Relapse probability from mild--partial.}
 #'
-#'   \item{moderaterecoverycured}{Cure probability from moderate–recovery.}
-#'   \item{moderaterecoveryrelapse}{Relapse probability from moderate–recovery.}
-#'   \item{moderatepartialcured}{Cure probability from moderate–partial.}
-#'   \item{moderatepartialrelapse}{Relapse probability from moderate–partial.}
+#'   \item{moderaterecoverycured}{Cure probability from moderate--recovery.}
+#'   \item{moderaterecoveryrelapse}{Relapse probability from moderate--recovery.}
+#'   \item{moderatepartialcured}{Cure probability from moderate--partial.}
+#'   \item{moderatepartialrelapse}{Relapse probability from moderate--partial.}
 #'
-#'   \item{severerecoverycured}{Cure probability from severe–recovery.}
-#'   \item{severerecoveryrelapse}{Relapse probability from severe–recovery.}
-#'   \item{severepartialcured}{Cure probability from severe–partial.}
-#'   \item{severepartialrelapse}{Relapse probability from severe–partial.}
+#'   \item{severerecoverycured}{Cure probability from severe--recovery.}
+#'   \item{severerecoveryrelapse}{Relapse probability from severe--recovery.}
+#'   \item{severepartialcured}{Cure probability from severe--partial.}
+#'   \item{severepartialrelapse}{Relapse probability from severe--partial.}
 #' }
 #'
-#' **Relapse multipliers**
+#' \strong{Relapse multipliers}
 #' \describe{
 #'   \item{increased_relapse_1}{Relapse multiplier (category 1).}
 #'   \item{increased_relapse_2}{Relapse multiplier (category 2).}
@@ -94,22 +94,13 @@
 #'   \item{increased_relapse_5}{Relapse multiplier (category 5).}
 #' }
 #'
-#'
-#' **(E) Additional general arguments**
+#' @return A list with two elements:
 #' \describe{
-#'   \item{sim_runs}{Number of simulation runs. Set at default at 1000}
-#'   \item{total_population}{Number of individuals simulated. Set at default at 10518000}
-#' }
-#'
-#' @return
-#' A list with two elements:
-#' \describe{
-#'   \item{base}{Output using the base scenario.}
-#'   \item{alt}{Output using the alternative scenario}
+#'   \item{base}{Model output using the base scenario.}
+#'   \item{alt}{Model output using the alternative scenario.}
 #' }
 #'
 #' @export
-
 
 run_model <- function(
     parameters = parameter_list,
@@ -310,6 +301,9 @@ run_model <- function(
     severepartialcured       = parameters[["severepartialcured"]],
     severepartialrelapse     = parameters[["severepartialrelapse"]]
   )
+  
+  print(res_base)
+  print(res_alt)
   
   # --- 5. Output both ---------------------------------------------------------
   list(

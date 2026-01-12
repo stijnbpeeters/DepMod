@@ -1,0 +1,46 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "75%",
+  warning = FALSE,
+  message = FALSE,
+  fig.retina = 2,
+  fig.align = 'center'
+)
+library(tidyverse)
+```
+
+# DepMod
+
+
+**DepMod** is an R package for modelling depression interventions using a
+health-economic simulation framework.
+
+The package provides:
+
+- A full simulation model implemented in R  
+- A Shiny application to run and explore the model interactively  
+
+
+The model supports evaluation of interventions for:
+
+- Prevention of sub-clinical depression  
+- Treatment of mild, moderate, and severe depression  
+- Prevention of recurrent depression  
+
+## Installation
+
+You can install the development version of DepMod from GitHub with:
+
+```r
+# install.packages("remotes")
+remotes::install_github("yourusername/DepMod")
+```

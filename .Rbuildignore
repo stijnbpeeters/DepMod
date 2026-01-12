@@ -1,2 +1,6 @@
+^\.RDataTmp.*$
+^LICENSE\.md$
+^data-raw$
+
 ^.*\.Rproj$
 ^\.Rproj\.user$

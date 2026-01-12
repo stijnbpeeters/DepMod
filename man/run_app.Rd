@@ -4,7 +4,7 @@
 \alias{run_app}
 \title{Run the Shiny app}
 \usage{
-run_app(...)
+run_app()
 }
 \description{
 Launches the Shiny app included in this package.

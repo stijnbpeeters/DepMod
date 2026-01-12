@@ -9,13 +9,13 @@
 # `severecure` <-  1
 # `relapsecure` <-  1
 
-`dwmild fixed` <- 0.14
-`dwmoderate fixed` <- 0.35
-`dwsevere fixed` <- 0.76
+`dwmild fixed` <- 0.153
+`dwmoderate fixed` <- 04
+`dwsevere fixed` <- 0.537
 
-yldmild <- 0.25
+yldmild <- 0.25 
 yldmoderate <- 0.50
-yldsevere <-  0.75
+yldsevere <-  0.75 
 
 
 `employment rate` <- 0.95

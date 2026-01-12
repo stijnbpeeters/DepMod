@@ -8,9 +8,9 @@
 #' \describe{
 #'   \item{cov}{Coverage of the intervention (proportion of target population).}
 #'   \item{adh}{Adherence to the intervention (proportion).}
-#'   \item{d}{Effect size or relative risk reduction (numeric).}
+#'   \item{1-RR}{Effect size or relative risk reduction (numeric).}
 #'   \item{n}{Sample size or study population used for the parameter estimate.}
-#'   \item{healthcare_costs}{Estimated healthcare costs per person.}
+#'   \item{healthcare costs}{Estimated healthcare costs per person.}
 #' }
 #'
 #' @usage data(data_prev_sub_base)
@@ -47,7 +47,7 @@
 #'   \item{adh}{Adherence to the intervention (proportion).}
 #'   \item{d}{Effect size or relative risk reduction (numeric).}
 #'   \item{n}{Sample size or study population used for the estimate.}
-#'   \item{healthcare_costs}{Estimated healthcare costs per person.}
+#'   \item{healthcare costs}{Estimated healthcare costs per person.}
 #' }
 #'
 #' @usage data(data_tr_mild_base)
@@ -86,8 +86,8 @@
 #'
 #' @format Same structure as \code{data_tr_mod_base}.
 #'
-#' @usage data(data_tr_mod_treat_alt)
-"data_tr_mod_treat_alt"
+#' @usage data(data_tr_mod_alt)
+"data_tr_mod_alt"
 
 
 #' Intervention: treatment of severe depression (base)
@@ -96,9 +96,9 @@
 #' episodes. Includes coverage, adherence, effectiveness, sample size, and
 #' healthcare costs.
 #'
-#' @format Same structure as \code{data_tr_mild_base}.
+#' @format Same structure as \code{data_tr_sev_base}.
 #'
-#' @usage data(data_tr_mild_base)
+#' @usage data(data_tr_sev_base)
 "data_tr_sev_base"
 
 
@@ -108,7 +108,7 @@
 #' episodes. Structure matches the base dataset. Values can be adjusted to reflect alternative modelling
 #' assumptions. In this dataset, the same numbers are provided as in the base case.
 #'
-#' @format Same structure as \code{data_tr_sev_base}.
+#' @format Same structure as \code{data_tr_sev_alt}.
 #'
 #' @usage data(data_tr_sev_alt)
 "data_tr_sev_alt"
@@ -132,7 +132,7 @@
 #' depression. Structure matches the base dataset. Values can be adjusted to reflect alternative modelling
 #' assumptions. In this dataset, the same numbers are provided as in the base case.
 #'
-#' @format Same structure as \code{data_prev_rec_base}.
+#' @format Same structure as \code{data_prev_rec_alt}.
 #'
-#' @usage data(data_prev_rec_base)
-"data_prev_rec_base"
+#' @usage data(data_prev_rec_alt)
+"data_prev_rec_alt"

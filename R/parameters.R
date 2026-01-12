@@ -58,11 +58,11 @@
 #'   \item{severepartialrelapse}{Among severe partial recoveries, probability of relapse.}
 #' }
 #'
-#' @usage data(parameters)
+#' @usage data(parameter_list)
 #' @keywords datasets
 #'
 #' @examples
-#' data(parameters)
-#' names(parameters)
-#' parameters[["excess mortality"]]
-"parameters"
+#' data(parameter_list)
+#' names(parameter_list)
+#' parameter_list[["excess mortality"]]
+"parameter_list"
