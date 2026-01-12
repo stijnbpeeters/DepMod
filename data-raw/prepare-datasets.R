@@ -6,7 +6,7 @@ data_prev_sub_base <- data.frame(
   cov = 0.15,
   adh = 0.56,
   "1-RR" = 0.21,
-  N = 30,
+  n = 30,
   "healthcare costs" = 160,
   check.names = FALSE
 )
@@ -61,7 +61,7 @@ data_prev_sub_alt <- data.frame(
   cov = 0.15,
   adh = 0.56,
   "1-RR" = 0.21,
-  N = 30,
+  n = 30,
   "healthcare costs" = 160,
   check.names = FALSE
 )

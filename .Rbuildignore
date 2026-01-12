@@ -1,6 +1,8 @@
 ^\.RDataTmp.*$
 ^LICENSE\.md$
 ^data-raw$
-
+^README\.Rmd$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^CRAN-SUBMISSION$
+^cran-comments\.md$

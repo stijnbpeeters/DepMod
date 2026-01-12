@@ -2,3 +2,7 @@
 
 export(run_app)
 export(run_model)
+importFrom(stats,qbeta)
+importFrom(stats,qgamma)
+importFrom(stats,qnorm)
+importFrom(stats,runif)
