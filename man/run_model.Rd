@@ -63,6 +63,9 @@ A list with two elements:
 \item{base}{Model output using the base scenario.}
 \item{alt}{Model output using the alternative scenario.}
 }
+
+#' @examples
+res <- run_model()
 }
 \description{
 Wrapper for running the DepMod decision-analytic model under both base and

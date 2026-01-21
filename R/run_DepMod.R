@@ -99,6 +99,9 @@
 #'   \item{base}{Model output using the base scenario.}
 #'   \item{alt}{Model output using the alternative scenario.}
 #' }
+#' 
+#' #' @examples
+#' res <- run_model()
 #'
 #' @export
 
