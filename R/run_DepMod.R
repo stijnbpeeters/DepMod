@@ -166,15 +166,56 @@ run_model <- function(
   # --- 2. Build transition matrix ---------------------------------------------
   leavemodel <-  (1 - parameters[["death_rate"]] * parameters[["excess_mortality"]]) * (1 - parameters[["retirement_rate"]])
  
-   parameters$leavemodel <- leavemodel
+  parameters$leavemodel <- leavemodel
   
-   parameters_first <- parameters
-   parameters_first[c("dw_conversion_fact", 
-                     "discount_rate_daly",
-                     "scale_shape_gamma_cost",
-                     "disc_rate_cost",
-                     "Lower range dw conversion factor",
-                     "Upper range dw conversion factor")] <- NULL
+  first_part_names <- c(
+    "death_rate",
+    "retirement_rate",
+    "excess_mortality",
+    "increased_relapse_1",
+    "increased_relapse_2",
+    "increased_relapse_3",
+    "increased_relapse_4",
+    "increased_relapse_5",
+    "mean_dur_chron",
+    "leavemodel",
+    "incidence_no_history",
+    "pmild",
+    "pmoderate",
+    "psevere",
+    "mildrecovery",
+    "mildpartial",
+    "mildchronic",
+    "moderaterecovery",
+    "moderatepartial",
+    "moderatechronic",
+    "severerecovery",
+    "severepartial",
+    "severechronic",
+    "mildrecoverycured",
+    "mildrecoveryrelapse",
+    "mildpartialcured",
+    "mildpartialrelapse",
+    "moderaterecoverycured",
+    "moderaterecoveryrelapse",
+    "moderatepartialcured",
+    "moderatepartialrelapse",
+    "severerecoverycured",
+    "severerecoveryrelapse",
+    "severepartialcured",
+    "severepartialrelapse"
+  )
+  
+  missing <- setdiff(first_part_names, names(parameters))
+  if (length(missing) > 0) {
+    stop("`parameters` is missing required first-part inputs: ",
+         paste(missing, collapse = ", "),
+         call. = FALSE)
+  }
+  
+  parameters_first <- parameters[first_part_names]
+  
+  tm <- do.call(func_first_part_model, parameters_first)
    
    
   tm <- do.call(func_first_part_model, parameters_first)

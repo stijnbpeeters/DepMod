@@ -5,9 +5,9 @@
 # `severecuration` <- 0.025000000372529 
 # `relapsefactor` <- 0
 
-# `moderatecure` <- 1
-# `severecure` <-  1
-# `relapsecure` <-  1
+`moderatecure` <- 1
+`severecure` <-  1
+`relapsecure` <-  1
 
 `dwmild fixed` <- 0.153
 `dwmoderate fixed` <- 04

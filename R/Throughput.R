@@ -1,4 +1,9 @@
 # Calculations based on input parameters ----------------------------------
+`moderatecure` <- 1
+`severecure` <-  1
+`relapsecure` <-  1
+
+
 
 `dwmild fixed` <- 0.14
 `dwmoderate fixed` <- 0.35

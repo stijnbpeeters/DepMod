@@ -9,3 +9,9 @@ run_app()
 \description{
 Launches the Shiny app included in this package.
 }
+\examples{
+\dontrun{
+run_app()
+}
+
+}

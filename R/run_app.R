@@ -3,7 +3,7 @@
 #' Launches the Shiny app included in this package.
 #' @export
 #' 
-#' #' @examples
+#' @examples
 #' \dontrun{
 #' run_app()
 #' }
