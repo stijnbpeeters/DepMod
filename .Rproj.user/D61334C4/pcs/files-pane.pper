@@ -5,5 +5,5 @@
             "ascending": false
         }
     ],
-    "path": "~/DepMod/inst/app/Depmod"
+    "path": "~/DepMod/tests/testthat"
 }

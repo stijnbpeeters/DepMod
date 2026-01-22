@@ -217,8 +217,6 @@ run_model <- function(
   
   tm <- do.call(func_first_part_model, parameters_first)
    
-   
-  tm <- do.call(func_first_part_model, parameters_first)
   
   
   
