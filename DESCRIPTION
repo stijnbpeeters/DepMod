@@ -18,7 +18,12 @@ RoxygenNote: 7.3.3
 Imports: 
     shiny,
     stats,
-    utils
+    utils,
+    DT,
+    DiagrammeR,
+    tidyverse,
+    bslib,
+    here
 Depends: 
     R (>= 3.5)
 LazyData: true

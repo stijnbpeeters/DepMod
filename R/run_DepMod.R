@@ -344,9 +344,6 @@ run_model <- function(
     severepartialrelapse     = parameters[["severepartialrelapse"]]
   )
   
-  print(res_base)
-  print(res_alt)
-  
   # --- 5. Output both ---------------------------------------------------------
   list(
     base = res_base,

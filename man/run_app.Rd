@@ -6,12 +6,14 @@
 \usage{
 run_app()
 }
+\value{
+No return value; called for its side effect of launching the Shiny application.
+}
 \description{
 Launches the Shiny app included in this package.
 }
 \examples{
-\dontrun{
-run_app()
+if (interactive()) {
+  run_app()
 }
-
 }
