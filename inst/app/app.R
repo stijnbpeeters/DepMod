@@ -7,7 +7,7 @@ library(bslib)
 library(tidyverse)
 
 
-# Source Througput for model
+# Source Throughput for model
 
 source("Depmod/Throughput.R")
 
