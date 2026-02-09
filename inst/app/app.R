@@ -1,8 +1,11 @@
 # Include packages
-for (p in c("tidyverse", "shiny", "DT", "DiagrammeR", "here", "bslib")) {
-  if (!requireNamespace(p, quietly = TRUE)) install.packages(p)
-  library(p, character.only = TRUE)
-}
+library(shiny)
+library(DT)
+library(DiagrammeR)
+library(here)
+library(bslib)
+library(tidyverse)
+
 
 # Source Througput for model
 
